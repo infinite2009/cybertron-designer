@@ -9,8 +9,14 @@
 export default {
   name: 'component-item',
   props: {
-    componentName: '',
-    componentIconName: ''
+    componentName: {
+      type: String,
+      default: () => ''
+    },
+    componentIconName: {
+      type: String,
+      default: () => ''
+    }
   }
 };
 </script>

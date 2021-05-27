@@ -16,11 +16,11 @@
 </template>
 
 <script>
+import store from '@/store';
 import StyleSetting from './style-setting.vue';
 import EventSetting from './event-setting.vue';
 import DataSetting from './data-setting.vue';
 import PropsSetting from './props-setting.vue';
-import store from '@/store';
 
 export default {
   name: 'setting-area',

@@ -1,9 +1,9 @@
 enum Positioning {
-  static= 'static',
+  static = 'static',
   relative = 'relative',
   absolute = 'absolute',
   fixed = 'fixed',
-  sticky = 'sticky',
+  sticky = 'sticky'
 }
 
 export default Positioning;

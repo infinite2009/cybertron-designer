@@ -29,8 +29,8 @@
 import { defineComponent, ref } from 'vue';
 import draggable from 'vuedraggable';
 import { BuildOutlined } from '@ant-design/icons-vue';
-import mockComponentList from '../../../mock/component-list';
 import SchemaService from '@/service/schema-operation/index.service';
+import mockComponentList from '../../../mock/component-list';
 
 export default defineComponent({
   name: 'component-panel',
@@ -40,7 +40,7 @@ export default defineComponent({
   },
   props: {},
   methods: {
-    insertWidget(data: { type: any; }) {
+    insertWidget(data: { type: any }) {
       return SchemaService.insertWidget(data);
     }
   },
@@ -55,7 +55,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .icon :deep(svg) {
-  color: "#a3a8b8";
+  color: '#a3a8b8';
   width: 40px;
   height: 40px;
 }

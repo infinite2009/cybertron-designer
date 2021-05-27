@@ -16,8 +16,7 @@ module.exports = {
     { value: 'test', name: 'test:     添加、修改测试用例' },
     {
       value: 'build',
-      name:
-        'build:    构建流程、外部依赖变更（如升级 npm 包、修改 webpack 配置等）'
+      name: 'build:    构建流程、外部依赖变更（如升级 npm 包、修改 webpack 配置等）'
     },
     { value: 'ci', name: 'ci:       修改 CI 配置、脚本' },
     {
@@ -43,7 +42,7 @@ module.exports = {
     return {
       value,
       name: `${value.padEnd(30)} (${description})`
-    }
+    };
   }),
 
   // 是否允许自定义填写 scope，在 scope 选择的时候，会有 empty 和 custom 可以选择。
@@ -89,4 +88,4 @@ module.exports = {
   breaklineChar: '|' // 换行符，支持 body 和 footer
   // footerPrefix : 'ISSUES CLOSED:'
   // askForBreakingChangeFirst : true,
-}
+};

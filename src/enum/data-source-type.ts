@@ -5,7 +5,7 @@
 enum DataSourceType {
   local = 'local',
   httpRequest = 'httpRequest',
-  native = 'native',
+  native = 'native'
 }
 
 export default DataSourceType;

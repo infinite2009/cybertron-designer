@@ -45,7 +45,7 @@ export default {
   props: {
     style: {
       type: Object,
-      required: true,
+      required: true
     }
   },
   data() {
@@ -56,12 +56,10 @@ export default {
       },
       wrapperCol: {
         span: 12
-      },
-    }
+      }
+    };
   }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

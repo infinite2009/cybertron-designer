@@ -39,7 +39,7 @@ export default {
   props: {
     style: {
       type: Object,
-      default: {
+      default: () => ({
         borderTop: {
           type: String,
           value: 0,
@@ -48,7 +48,7 @@ export default {
         borderRight: {
           type: String,
           value: 0,
-          unit: StyleValueUnit.px,
+          unit: StyleValueUnit.px
         },
         borderBottom: {
           type: String,
@@ -59,8 +59,8 @@ export default {
           type: String,
           value: 0,
           unit: StyleValueUnit.px
-        },
-      }
+        }
+      })
     }
   },
   data() {
@@ -71,12 +71,10 @@ export default {
       },
       wrapperCol: {
         span: 12
-      },
-    }
+      }
+    };
   }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

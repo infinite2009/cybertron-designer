@@ -8,5 +8,5 @@ export enum BindingType {
   isolated = 'isolated',
   listItem = 'listItem',
   columnItem = 'columnItem',
-  rowItem = 'rowItem',
+  rowItem = 'rowItem'
 }

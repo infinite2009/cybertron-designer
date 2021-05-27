@@ -13,7 +13,7 @@ const InputWidget = defineComponent({
     schema: {
       type: Object,
       required: true,
-      default: {}
+      default: () => {}
     }
   },
   computed: {

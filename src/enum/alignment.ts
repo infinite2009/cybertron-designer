@@ -5,7 +5,7 @@ enum Alignment {
   top = 'top',
   right = 'right',
   bottom = 'bottom',
-  left= 'left',
+  left = 'left',
   center = 'center'
 }
 

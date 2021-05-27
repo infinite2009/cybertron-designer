@@ -160,7 +160,7 @@ class SchemaService implements SchemaOperator {
             fontFamily: {
               name: 'font-family',
               value: 'Microsoft YaHei',
-              unit: StyleValueUnit.px,
+              unit: StyleValueUnit.px
             },
             fontSize: {
               name: 'font-size',

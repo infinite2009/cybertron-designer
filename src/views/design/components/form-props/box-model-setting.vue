@@ -87,7 +87,7 @@ export default {
   props: {
     style: {
       type: Object,
-      default: {
+      default: () => ({
         marginTop: {
           type: Number,
           value: 0,
@@ -129,26 +129,26 @@ export default {
           unit: StyleValueUnit.px
         },
         width: {
-          type: Number | String,
+          type: Number || String,
           value: 'auto',
           unit: StyleValueUnit.px
         },
         height: {
-          type: Number | String,
+          type: Number || String,
           value: 'auto',
           unit: StyleValueUnit.px
         },
         minWidth: {
-          type: Number | String,
+          type: Number || String,
           value: 'auto',
           unit: StyleValueUnit.px
         },
         minHeight: {
-          type: Number | String,
+          type: Number || String,
           value: 'auto',
           unit: StyleValueUnit.px
         }
-      }
+      })
     }
   },
   data() {
@@ -159,7 +159,7 @@ export default {
       },
       wrapperCol: {
         span: 12
-      },
+      }
     };
   }
 };

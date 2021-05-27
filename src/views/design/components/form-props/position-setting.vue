@@ -28,13 +28,13 @@ export default {
     style: {
       type: Object,
       required: true,
-      default: {
+      default: () => ({
         position: {
           type: Positioning,
           value: Positioning.static,
           unit: StyleValueUnit.none
         }
-      }
+      })
     }
   },
   data() {

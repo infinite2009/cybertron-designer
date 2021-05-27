@@ -2,7 +2,7 @@ enum HttpMethod {
   get = 'GET',
   post = 'POST',
   put = 'PUT',
-  delete = 'DELETE',
+  delete = 'DELETE'
 }
 
 export default HttpMethod;

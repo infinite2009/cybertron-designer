@@ -24,13 +24,13 @@ export default {
   props: {
     style: {
       type: Object,
-      default: {
+      default: () => ({
         display: {
           type: Layout,
           value: Layout.block,
           unit: StyleValueUnit.none
         }
-      }
+      })
     }
   },
   data() {

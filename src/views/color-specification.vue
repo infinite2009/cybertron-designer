@@ -54,7 +54,7 @@
 <script>
 export default {
   name: 'color-specification'
-}
+};
 </script>
 
 <style scoped></style>
