@@ -23,8 +23,8 @@ export default interface PageSchema extends ContainerSchema {
         name: string;
         value: number;
         unit: StyleValueUnit;
-      },
-    },
+      };
+    };
     route: string;
     // 运行期间读取和写入的
     localStorage: {
@@ -42,14 +42,14 @@ export default interface PageSchema extends ContainerSchema {
       [key: string]: {
         name: string;
         payload: DynamicObject;
-      }
+      };
     };
     // 接收 native 事件
     nativeMessage: {
       [key: string]: {
         name: string;
         payload: DynamicObject;
-      }
+      };
     };
     // 页面的运行时状态 ( 包括远端数据 )
     state: DynamicObject;

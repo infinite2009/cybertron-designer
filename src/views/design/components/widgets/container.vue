@@ -18,10 +18,10 @@
 import { defineComponent, ref } from 'vue';
 import { convertSchemaToStyle } from '@/util';
 import draggable from 'vuedraggable';
+import store from '@/store';
 import ImageWidget from './image.vue';
 import TextWidget from './text.vue';
 import ListWidget from './list.vue';
-import store from '@/store';
 
 const ContainerWidget = defineComponent({
   name: 'container-widget',
@@ -34,7 +34,7 @@ const ContainerWidget = defineComponent({
   props: {
     schema: {
       type: Object,
-      default: {},
+      default: () => {},
       required: true
     },
     selectedSchemaId: {
@@ -52,6 +52,7 @@ const ContainerWidget = defineComponent({
   },
   methods: {
     onchange(data) {
+      console.log(data);
       this.newAdded = data.added.element;
       store.commit('cacheWidget', this.newAdded);
       this.selectWidget(this.newAdded);

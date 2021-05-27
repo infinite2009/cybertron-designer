@@ -11,5 +11,5 @@ export default interface HttpRequest {
   responseShape: {
     success: string;
     failure: string;
-  }
+  };
 }

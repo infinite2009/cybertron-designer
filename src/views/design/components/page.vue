@@ -16,21 +16,19 @@
 
 <script>
 import draggable from 'vuedraggable';
-import ContainerWidget from './widgets/container.vue';
 import store from '@/store';
-import {convertSchemaToStyle} from '@/util';
-import {ref} from 'vue';
+import { convertSchemaToStyle } from '@/util';
+import { ref } from 'vue';
+import ContainerWidget from './widgets/container.vue';
+
 export default {
   name: 'page',
-  components: {ContainerWidget, draggable},
+  components: { ContainerWidget, draggable },
   props: {
     schema: {
       type: Object,
-      required: true,
+      required: true
     }
-  },
-  mounted() {
-    console.log('page: ', this.schema);
   },
   computed: {
     curStyle() {
@@ -57,7 +55,7 @@ export default {
     return {
       data: ref(this.schema.children),
       newAdded: {}
-    }
+    };
   }
 };
 </script>

@@ -1,5 +1,5 @@
 enum ProgramingLanguage {
-  javascript= 'JavaScript',
+  javascript = 'JavaScript',
   typescript = 'Typescript'
 }
 

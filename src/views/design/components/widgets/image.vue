@@ -1,10 +1,10 @@
 <template>
-  <img :src="schema.props.url" :alt="schema.props.alt" :style="curStyle" :class="{ selected }" @click="selectWidget"/>
+  <img :src="schema.props.url" :alt="schema.props.alt" :style="curStyle" :class="{ selected }" @click="selectWidget" />
 </template>
 
 <script>
-import {defineComponent} from 'vue';
-import {convertSchemaToStyle} from '@/util';
+import { defineComponent } from 'vue';
+import { convertSchemaToStyle } from '@/util';
 import store from '@/store';
 
 const ImgWidget = defineComponent({
@@ -13,7 +13,7 @@ const ImgWidget = defineComponent({
     schema: {
       type: Object,
       required: true,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
@@ -33,7 +33,6 @@ const ImgWidget = defineComponent({
 });
 
 export default ImgWidget;
-
 </script>
 
 <style scoped lang="less">

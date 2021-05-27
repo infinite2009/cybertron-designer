@@ -1,10 +1,14 @@
 <template>
-  <ul :style="curStyle" :class="{ selected }" @click="selectWidget">{{ 'list works!' }}</ul>
+  <ul :style="curStyle" :class="{ selected }" @click="selectWidget">
+    {{
+      'list works!'
+    }}
+  </ul>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import {convertSchemaToStyle} from '@/util';
+import { convertSchemaToStyle } from '@/util';
 import store from '@/store';
 
 const ListWidget = defineComponent({
@@ -13,7 +17,7 @@ const ListWidget = defineComponent({
     schema: {
       type: Object,
       required: true,
-      default: {}
+      default: () => {}
     }
   },
   computed: {

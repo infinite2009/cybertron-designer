@@ -36,7 +36,7 @@ export default {
     style: {
       type: Object,
       required: true,
-      default: {
+      default: () => ({
         boxShadow: {
           type: String,
           value: '',
@@ -52,7 +52,7 @@ export default {
           value: '',
           unit: StyleValueUnit.none
         }
-      }
+      })
     }
   },
   data() {
@@ -64,11 +64,9 @@ export default {
       wrapperCol: {
         span: 12
       }
-    }
+    };
   }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

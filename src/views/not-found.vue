@@ -10,9 +10,9 @@ export default {
   data() {
     return {
       msg: '路由不正确或者未找到需要加载的组件'
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="less" scoped></style>

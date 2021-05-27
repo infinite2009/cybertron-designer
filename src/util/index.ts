@@ -8,23 +8,20 @@ import FormConfig from '@/interface/front-end/form-config';
 import pageFormConfig from '@/config/forms/page';
 
 export function convertSchemaToStyle(styleSchema: StyleSchema[]) {
-  return Object.values(styleSchema).reduce(
-    (accumulator: DynamicObject, curVal) => {
-      const key = hyphensToCamel(curVal.name);
-      accumulator[key] = `${curVal.value}${curVal.unit}`;
-      return accumulator;
-    },
-    {}
-  );
+  return Object.values(styleSchema).reduce((accumulator: DynamicObject, curVal) => {
+    const key = hyphensToCamel(curVal.name);
+    accumulator[key] = `${curVal.value}${curVal.unit}`;
+    return accumulator;
+  }, {});
 }
 
 export function getFormConfig(widgetType: string): FormConfig[] {
   const dict: DynamicObject = {
-    'page': pageFormConfig,
+    page: pageFormConfig,
     'container-widget': containerFormConfig,
     'image-widget': imgFormConfig,
     'list-widget': listFormConfig,
-    'text-widget': textFormConfig,
+    'text-widget': textFormConfig
   };
   return dict[widgetType];
 }

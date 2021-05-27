@@ -8,19 +8,20 @@
 import Page from '@/views/design/components/page.vue';
 
 export default {
-  name: "editor-area",
+  name: 'editor-area',
   components: {
-    page: Page,
+    page: Page
   },
   props: {
     schema: {
       type: Object,
-      required: true,
+      required: true
     }
+  },
+  mounted() {
+    console.log(this.schema);
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

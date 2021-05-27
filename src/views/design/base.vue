@@ -16,16 +16,16 @@
 </template>
 
 <script lang="ts">
-import ToolBar from './components/tool-bar.vue';
-import PanelArea from './components/panel-area.vue';
-import EditorArea from './components/editor-area.vue';
 import { v4 as uuid } from 'uuid';
-import SettingArea from './components/setting-area/index.vue';
 import store from '@/store';
 import PageSchema from '@/interface/schema/page.schema';
 import StyleValueUnit from '@/enum/style-value-unit';
 import { Ref, ref } from 'vue';
 import WidgetType from '@/enum/schema/widget-type.enum';
+import SettingArea from './components/setting-area/index.vue';
+import EditorArea from './components/editor-area.vue';
+import PanelArea from './components/panel-area.vue';
+import ToolBar from './components/tool-bar.vue';
 
 export default {
   name: 'base',
@@ -75,9 +75,9 @@ export default {
         // 页面的运行时状态 ( 包括远端数据 )
         state: {},
         // 页面内的交互事件
-        events: {},
+        events: {}
       },
-      children: [],
+      children: []
     });
     console.log('page schema: ', schema);
     store.commit('initPage', schema);

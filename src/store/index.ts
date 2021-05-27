@@ -18,7 +18,7 @@ const store = createStore({
     initPage(state, payload: WidgetSchema) {
       const { schemaDict } = state;
       let q = [payload];
-      while(q.length) {
+      while (q.length) {
         const item = q.shift();
         schemaDict[item.id] = item;
         if (item?.children?.length) {
@@ -30,11 +30,9 @@ const store = createStore({
       const { schemaDict } = state;
       schemaDict[payload.id] = payload;
     },
-    insertWidget(state, payload: WidgetSchema) {
-    },
+    insertWidget(state, payload: WidgetSchema) {},
     updateWidget(state) {},
-    deleteWidget(state) {
-    },
+    deleteWidget(state) {},
     moveWidget(state) {
       this.deleteWidget(state);
       this.insertWidget(state);

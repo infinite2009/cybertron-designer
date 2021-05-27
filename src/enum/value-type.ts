@@ -1,11 +1,11 @@
 enum ValueType {
-  number= 'number',
+  number = 'number',
   string = 'string',
   enum = 'enum',
   boolean = 'boolean',
   object = 'object',
   array = 'array',
-  any = 'any',
+  any = 'any'
 }
 
 export default ValueType;

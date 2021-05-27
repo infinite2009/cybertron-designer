@@ -1,8 +1,8 @@
-import Home from '@/views/Home.vue'
-import DesignBase from '@/views/design/base.vue'
-import ManagementBase from '@/views/management/base.vue'
-import ColorSpecification from '@/views/color-specification.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import Home from '@/views/Home.vue';
+import DesignBase from '@/views/design/base.vue';
+import ManagementBase from '@/views/management/base.vue';
+import ColorSpecification from '@/views/color-specification.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
@@ -31,11 +31,11 @@ const routes = [
     name: 'ColorSpecification',
     component: ColorSpecification
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;

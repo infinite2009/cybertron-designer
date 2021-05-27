@@ -1,6 +1,6 @@
 <template>
   <template v-if="widgetType">
-    <component :is="item.type" v-for="item in settingList" :style="schema.props.style"></component>
+    <component :is="item.type" v-for="item in settingList" :key="item.id" :style="schema.props.style"></component>
   </template>
   <div v-else>请选择组件</div>
 </template>
@@ -24,7 +24,7 @@ export default {
     FontSetting,
     BorderSetting,
     VisualEffectSetting,
-    PageStyleSetting,
+    PageStyleSetting
   },
   props: {
     schema: {

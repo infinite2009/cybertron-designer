@@ -1,5 +1,3 @@
-const boxModel = {
-
-};
+const boxModel = {};
 
 export default boxModel;

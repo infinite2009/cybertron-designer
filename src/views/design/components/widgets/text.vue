@@ -13,7 +13,7 @@ const TextWidget = defineComponent({
     schema: {
       type: Object,
       required: true,
-      default: {}
+      default: () => {}
     }
   },
   computed: {
@@ -40,7 +40,7 @@ export default TextWidget;
 .selected {
   .selected();
   &:before {
-    content: '文本'
+    content: '文本';
   }
 }
 </style>

@@ -9,7 +9,7 @@ const coderXColors = {
   primaryBlack: '#15192c',
   white: '#fff',
   red: '#e93c51'
-}
+};
 
 module.exports = {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -59,4 +59,4 @@ module.exports = {
     container: false
   },
   plugins: []
-}
+};
