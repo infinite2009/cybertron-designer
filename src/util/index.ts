@@ -42,3 +42,14 @@ export function hyphensToCamel(name: string): string {
 export function camelToHyphens(name: string): string {
   return name.replace(/([A-Z])/g, (g) => `-${g.toLowerCase()}`);
 }
+
+/**
+ * 首字母转大写
+ * @param str 
+ * @returns 
+ */
+export function firstToUpper(str){
+  return str.replace(/\b(\w)(\w*)/g, function($0, $1, $2) {
+      return $1.toUpperCase() + $2.toLowerCase();
+  });
+}

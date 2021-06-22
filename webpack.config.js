@@ -18,6 +18,7 @@ module.exports = {
     contentBase: path.join(__dirname, "src"),
     hot: true,
     hotOnly: true,
+    port:8888,
     historyApiFallback: true,
     disableHostCheck: true,
     headers: {

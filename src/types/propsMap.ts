@@ -1,10 +1,19 @@
 import { ReactNode } from 'react'
-import { TextComponentProps } from './defaultProps'
-import fontFamilyOptions from './fontFamilyOptions'
+import { Input, InputNumber, Slider, Select, Radio } from "antd"
+import { SketchPicker } from 'react-color'
 
+import { TextComponentProps } from './defaultProps'
+import fontFamilyOptions from '../components/widgets/fontFamilyOptions'
+
+const TextArea = Input.TextArea
+const Group = Radio.Group
+const Option = Select.Option
+
+// TODO
+// SketchPicker 待二次封装、点击弹出来颜色选择器、不然太占位置
 export interface PropToForm {
-    component: string;
-    subComponent?: string;
+    component: any;
+    subComponent?: any;
     value?: string;
     valueProp?: string;
     text?: string;
@@ -34,37 +43,61 @@ export type PropsToForms = {
 export const mapPropsToForms: PropsToForms = {
     text: {
         text: '文本',
-        component: 'a-textarea',
+        component: TextArea,
         value: "test",
         extraProps: { rows: 3 },
         afterTransform: (e: any) => e.target.value,
     },
     color: {
-        component: 'color-picker',
-        text: '字体颜色'
+        component: SketchPicker,
+        text: '字体颜色',
+        valueProp: "color",
+        afterTransform: (e: any) => e.hex
+
+    },
+    backgroundColor: {
+        component: SketchPicker,
+        text: '背景颜色',
+        valueProp: "color",
+        afterTransform: (e: any) => e.hex
     },
     fontSize: {
         text: '字号',
-        component: 'a-input-number',
+        component: InputNumber,
+        initalTransform: (v: string) => parseInt(v),
+        afterTransform: (e: number) => e ? `${e}px` : '',
+    },
+    height: {
+        text: '高度',
+        component: InputNumber,
+        initalTransform: (v: string) => parseInt(v),
+        afterTransform: (e: number) => e ? `${e}px` : '',
+    },
+    width: {
+        text: '宽度',
+        component: InputNumber,
         initalTransform: (v: string) => parseInt(v),
         afterTransform: (e: number) => e ? `${e}px` : '',
     },
     lineHeight: {
         text: '行高',
-        component: 'a-slider',
-        extraProps: { min: 0, max: 3, step: 0.1 },
-        initalTransform: (v: string) => parseFloat(v),
-        afterTransform: (e: number) => e.toString(),
+        component: Slider,
+        extraProps: { min: 0, max: 30, step: 1 },
+        initalTransform: (v: string) => parseInt(v),
+        afterTransform: (e: number) => e ? `${e}px` : '',
     },
     opacity: {
         text: '透明度',
-        component: 'a-slider',
+        component: Slider,
+        extraProps: {
+            disabled: true,
+        },
         initalTransform: (v: string) => parseFloat(v) * 100,
         afterTransform: (v: string) => parseFloat((Number(v) / 100).toString()),
     },
     textAlign: {
-        component: 'a-radio-group',
-        subComponent: 'a-radio-button',
+        component: Group,
+        subComponent: Radio,
         text: '对齐',
         options: [
             { value: 'left', text: '左' },
@@ -74,8 +107,8 @@ export const mapPropsToForms: PropsToForms = {
         afterTransform: (e: any) => e.target.value,
     },
     fontFamily: {
-        component: 'a-select',
-        subComponent: 'a-select-option',
+        component: Select,
+        subComponent: Option,
         text: '字体',
         options: [
             { value: '', text: '无' },
