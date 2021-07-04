@@ -19,6 +19,7 @@ const ComponentList: FC<IProps> = (props) => {
       id: uuidv4(),
       name: item.name,
       type: item.type,
+      layerName: `图层${newcomponentData.length+1}`,
       props: {
         ...textDefaultProps
       },

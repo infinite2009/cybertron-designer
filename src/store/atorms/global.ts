@@ -14,3 +14,9 @@ export const componentDataAtom = atom({
     key: 'componentData',
     default: defaultComponentData,
 });
+
+/** 画布背景色 */
+export const pageBackgroundAtom = atom({
+    key: 'pageBackground',
+    default: '#ffffff'
+})

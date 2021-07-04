@@ -1,7 +1,7 @@
 import { selector } from 'recoil';
 import { getComponentList } from '@/api/componentList';
 import { IComponentData } from '@/types/componentData';
-import { componentDataAtom, currentElementAtom } from '../atorms/global';
+import { componentDataAtom, currentElementAtom, pageBackgroundAtom } from '../atorms/global';
 
 export const getAllComponentList = selector({
     key: 'getComponentList',

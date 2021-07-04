@@ -2,8 +2,8 @@ import React from 'react'
 import { Layout } from 'antd';
 import HeaderBase from './header'
 import LeftTabs from './leftTabs'
-import Main from './content'
-import RightTabs from './rightTabs'
+import Main from './canvas'
+import RightTabs from './setting-area'
 
 import './index.less'
 const { Header, Content, Footer, Sider } = Layout;

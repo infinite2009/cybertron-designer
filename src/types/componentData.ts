@@ -6,6 +6,9 @@ export interface IComponentData {
     type: string;
     /** 组件名 */
     name?: string;
+    layerName?: string;
+    isHidden?: boolean;
+    isLocked?: boolean;
     /** 组件属性 详情见 defaultProps */
     props: {
         [key in keyof TextComponentProps]?: any
