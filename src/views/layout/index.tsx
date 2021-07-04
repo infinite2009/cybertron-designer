@@ -17,13 +17,13 @@ const BaseLayout: React.FC = () => {
             </Header>
             <Content style={{ padding: '0 50px' }}>
                 <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-                    <Sider width={400}>
+                    <Sider theme="light" width={400}>
                         <LeftTabs />
                     </Sider>
                     <Content style={{ display: 'flex', justifyContent: 'center', minHeight: 280 }}>
                         <Main />
                     </Content>
-                    <Sider className="site-layout-background" width={400}>
+                    <Sider theme="light" width={400}>
                         <RightTabs />
                     </Sider>
                 </Layout>

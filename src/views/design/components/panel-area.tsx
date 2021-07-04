@@ -5,6 +5,7 @@ import ComponentPanel from '@/views/design/components/component/component-panel'
 export interface PanelAreaState {
   tabPosition: 'left' | 'right' | 'top' | 'bottom';
 }
+const TabPane = Tabs.TabPane
 
 export default class PanelArea extends React.Component<{}, PanelAreaState> {
   constructor(props: any) {

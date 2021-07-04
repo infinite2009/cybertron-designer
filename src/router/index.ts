@@ -2,13 +2,11 @@ import Design from "@/views/design";
 import Home from "@/views/home";
 import NotFound from "@/views/not-found";
 import Layout from '@/views/layout'
-import { ReactNode } from "react";
+import {RouteProps} from 'react-router-dom'
 
-interface RouteConfig {
-  path: string;
+interface RouteConfig extends RouteProps{
   name: string;
-  redirect?: string;
-  component?: ReactNode;
+  redirect?:string
 }
 
 export const routeConfig: RouteConfig[] = [
@@ -26,7 +24,7 @@ export const routeConfig: RouteConfig[] = [
   {
     path: '/design',
     name: '设计',
-    component: Design
+    component: Layout
   },
   {
     path: '*',
