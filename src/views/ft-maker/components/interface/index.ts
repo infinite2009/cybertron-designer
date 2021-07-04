@@ -24,6 +24,12 @@ export interface FormSchema {
     // TODO 副作用
     onChange: Function;
   }[];
-  onSubmt: Function;
-  onCancel: Function;
+  submt: {
+    name: string;
+    handler: Function;
+  };
+  cancel: {
+    name: string;
+    handler: Function;
+  };
 }
