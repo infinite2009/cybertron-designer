@@ -1,13 +1,14 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import mockComponentList from '@/mock/component-list';
-import { IComponentList, ITemplateProps } from '@/types/templateProps';
+// TODO 这可能是丢失文件了，回头需要重新写
+// import { IComponentList, ITemplateProps } from '@/types/templateProps';
 import { AppstoreAddOutlined } from '@ant-design/icons';
 
 import style from './index.less';
 
 export interface ComponentPanelState {
-  componentCollection: Array<IComponentList>;
+  componentCollection: Array<any>;
 }
 
 export default class ComponentPanel extends React.Component<any, ComponentPanelState> {
@@ -19,7 +20,7 @@ export default class ComponentPanel extends React.Component<any, ComponentPanelS
   }
 
   // 渲染单个托盘里边的组件图标列表
-  renderComponentIconList(list: ITemplateProps[]) {
+  renderComponentIconList(list: any[]) {
     return list.map((item, index) => {
       return (
         <div key={index} className={style.componentInfo}>
