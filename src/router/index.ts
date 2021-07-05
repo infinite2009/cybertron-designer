@@ -3,10 +3,12 @@ import Home from "@/views/home";
 import NotFound from "@/views/not-found";
 import Layout from '@/views/layout'
 import {RouteProps} from 'react-router-dom'
+import FtMaker from '@/views/ft-maker';
 
 interface RouteConfig extends RouteProps{
   name: string;
-  redirect?:string
+  redirect?:string;
+  path: string;
 }
 
 export const routeConfig: RouteConfig[] = [
@@ -25,6 +27,11 @@ export const routeConfig: RouteConfig[] = [
     path: '/design',
     name: '设计',
     component: Layout
+  },
+  {
+    path: '/ft-maker',
+    name: '表单设计神器',
+    component: FtMaker,
   },
   {
     path: '*',
