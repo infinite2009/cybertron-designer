@@ -1,3 +1,28 @@
-.main {
-  
+@width: 360px;
+
+.addField {
+  margin: 10px 0;
+  width: calc(@width - 40px);
+}
+
+.preview {
+  border-right: 1px solid #f0f0f0;
+  padding: 20px;
+  width: @width;
+}
+
+.setting {
+  width: 200px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  :global {
+    button {
+      margin-left: 20px;
+    }
+  }
 }

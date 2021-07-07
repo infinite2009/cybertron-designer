@@ -1,12 +1,12 @@
 import React from 'react';
-import Modal from 'antd/es/modal/Modal';
 import WidgetSchema from '@/interface/schema/widget/widget.schema';
 import Button from 'antd/lib/button';
+
+import style from './index.less';
 
 export interface FormMakerModalProps {
   visible: boolean;
   schema: WidgetSchema;
-  onClose: () => void;
 }
 
 export enum FieldType {
@@ -32,11 +32,6 @@ export default class FormMakerModal extends React.Component<FormMakerModalProps,
     };
   }
 
-  doOk = () => {
-    const { onClose } = this.props;
-    onClose();
-  };
-
   /*
    * 添加一个新的表单项
    */
@@ -48,12 +43,27 @@ export default class FormMakerModal extends React.Component<FormMakerModalProps,
 
   };
 
+  renderFieldsTpl() {
+    return '';
+  }
+
   render() {
     const { visible } = this.props;
+    const fieldsTpl = this.renderFieldsTpl();
     return (
-      <Modal visible={visible} title='表格设置' onOk={this.doOk}>
-        <Button type="primary" onClick={this.addField}>+</Button>
-      </Modal>
+      <div>
+        <div className={style.preview} >
+          { fieldsTpl }
+          <div className={style.buttonGroup}>
+            <Button>取消</Button>
+            <Button type="primary">确定</Button>
+          </div>
+          <Button type="primary" onClick={this.addField} className={style.addField}>+</Button>
+        </div>
+        <div className={style.setting}>
+
+        </div>
+      </div>
     );
   }
 }
