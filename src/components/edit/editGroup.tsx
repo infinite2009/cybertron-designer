@@ -62,6 +62,9 @@ const EditGroup:FC<IProps> = (props) => {
                 props: propsMap
             }
         })
+
+        // console.log('editGroups', editGroups)
+
         return (
             <Collapse defaultActiveKey={editGroups[0].text}>
                 {editGroups.map((item => {
@@ -74,6 +77,6 @@ const EditGroup:FC<IProps> = (props) => {
             </Collapse>
         )
     }
-    return <div>请选中画布</div>
+    return <Empty description="请选中组件" />
 }
 export default EditGroup

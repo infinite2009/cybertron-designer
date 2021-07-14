@@ -5,10 +5,13 @@ import { componentDataAtom, pageBackgroundAtom } from '@/store/atorms/global';
 import EditWrapper from '@/components/widgets/editWrapper';
 import componentMap from '@/types/componentMap'
 import styles from './index.less';
+import useKeys from '@/hooks/useKeys'
+
 
 // TODO
 // 待实现外层 div 拖动、点击选中、右键操作、nodeType 为文本选中出现 tool-bar
 const Index: React.FC = () => {
+    useKeys()
     const componentData: IComponentData[] = useRecoilValue(componentDataAtom);
     const [getComponentData, setComponentData] = useRecoilState(componentDataAtom)
     const backgroundColor = useRecoilValue(pageBackgroundAtom)

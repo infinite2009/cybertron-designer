@@ -12,12 +12,17 @@ import styles from './index.less';
 const Index: React.FC<IProps> = (props) => {
   const [componentData, setComponentData] = useRecoilState(componentDataAtom);
   const [currentElementId, setElementId] = useRecoilState(currentElementAtom);
-
   if (props.props) {
     const propMap = props.props;
     const isLocked = propMap?.isLocked;
     const isHidden = propMap?.isHidden;
     const propChange = ({ key, value }) => {
+      if(key==='left' || key==='top') {
+        const wrapperDiv = document.getElementById('wrapper' + currentElementId)  as HTMLElement
+        key==='left' && (wrapperDiv.style.left = value)
+        key==='top' && (wrapperDiv.style.top = value)
+      }
+
       let newData = [...componentData];
       // console.log(newData)
       // TODO 后续抽离出去、可能还需要递归去找、现在先默认就是一层
@@ -41,7 +46,9 @@ const Index: React.FC<IProps> = (props) => {
       propMap,
       (result, value, key) => {
         const newKey = key as keyof TextComponentProps;
+        
         const item = mapPropsToForms[newKey] as PropToForm;
+
         if (item) {
           const {
             valueProp = 'value',
