@@ -4,7 +4,7 @@ import React from 'react'
 const ImageWidget = (props) => {
     const { text, ...restProps } = props
     return (
-        <img {...restProps} style={{ width: 100, height: 100 }} />
+        <img {...restProps} />
     )
 }
 export default ImageWidget
