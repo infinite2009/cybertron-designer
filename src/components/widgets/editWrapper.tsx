@@ -21,7 +21,7 @@ export interface IProps {
   id: string;
 }
 const EditWrapper: React.FC<IProps> = (props) => {
-  const [currentElement, setElementId] = useRecoilState(currentElementAtom);
+  let [currentElement, setElementId] = useRecoilState(currentElementAtom);
   const editWrapperDiv = useRef<HTMLDivElement | null>(null);
   const gap = {
     x: 0,
@@ -29,6 +29,8 @@ const EditWrapper: React.FC<IProps> = (props) => {
   };
   let isMoving = false;
   const onItemClick = () => {
+    // alert(1)
+    currentElement = props.id
     setElementId(props.id);
   };
 

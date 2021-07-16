@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { ITemplateProps } from '@/types/componentList';
 import { useRecoilState } from 'recoil';
-import { componentDataAtom } from '@/store/atorms/global';
+import { componentDataAtom, historyAtom, HistoryProps } from '@/store/atorms/global';
 import { textDefaultProps} from "@/types/defaultProps"
 import { v4 as uuidv4 } from 'uuid';
-
+import { cloneDeep } from 'lodash-es'
 import styles from './index.less';
 interface IProps {
   list: ITemplateProps[];
@@ -12,6 +12,7 @@ interface IProps {
 
 const ComponentList: FC<IProps> = (props) => {
   const [componentData, setComponentData] = useRecoilState(componentDataAtom);
+  const [historyList, setHistory] = useRecoilState(historyAtom)
   const addComponentData = (item: ITemplateProps) => {
     const styles = item.props;
     let newcomponentData = [...componentData];
@@ -25,6 +26,18 @@ const ComponentList: FC<IProps> = (props) => {
       },
     };
     newcomponentData.push(newItem);
+
+    const newHistoryList:HistoryProps[] = [
+      ...historyList,
+      {
+          id: uuidv4(),
+          componentId: newItem.id,
+          type: 'add',
+          data: cloneDeep(newItem),
+      }
+    ]
+    setHistory(newHistoryList)
+
     setComponentData(newcomponentData);
   };
   return (

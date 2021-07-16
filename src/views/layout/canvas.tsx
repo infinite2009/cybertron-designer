@@ -1,22 +1,23 @@
-import React, { createElement, Fragment, ReactDOM, ReactElement } from 'react';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { IComponentData } from '@/types/componentData';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { componentDataAtom, pageBackgroundAtom } from '@/store/atorms/global';
+import { componentDataAtom, pageBackgroundAtom,historyAtom } from '@/store/atorms/global';
 import EditWrapper from '@/components/widgets/editWrapper';
 import componentMap from '@/types/componentMap'
 import styles from './index.less';
-import useKeys from '@/hooks/useKeys'
-
-
+import { initUseKeys } from '@/plugins/useKeys';
+// import useKeys from '@/hooks/useKeys'
+import { cloneDeep } from 'lodash-es'
 // TODO
 // 待实现外层 div 拖动、点击选中、右键操作、nodeType 为文本选中出现 tool-bar
 const Index: React.FC = () => {
-    useKeys()
-    const componentData: IComponentData[] = useRecoilValue(componentDataAtom);
-    const [getComponentData, setComponentData] = useRecoilState(componentDataAtom)
+    initUseKeys()
+    // const componentData:  = useRecoilValue(componentDataAtom);
+    const [componentData, setComponentData] = useRecoilState<IComponentData[]>(componentDataAtom)
     const backgroundColor = useRecoilValue(pageBackgroundAtom)
+    const [historyList, setHistory] = useRecoilState(historyAtom)
     const updatePosition = (data:any)=> {
-        // console.log(data)
         const { id, width, height, left, top } = data
         let newData = [...componentData]
         newData = newData.map(componet=> {
@@ -31,13 +32,19 @@ const Index: React.FC = () => {
                         top: top + 'px'
                     }
                 }
+                setHistory([...historyList, {
+                    type: 'modify',
+                    id: uuidv4(),
+                    componentId: componet.id,
+                    data: {
+                        oldValue: cloneDeep(componet)
+                    }
+                }])
                 return newComponet
             }
             return componet
         })
         setComponentData(newData)
-        // console.log(newData)
-
 
     }
     return (
@@ -66,3 +73,4 @@ const Index: React.FC = () => {
 };
 
 export default Index;
+

@@ -4,14 +4,16 @@ import { useRecoilState } from 'recoil';
 import { reduce } from 'lodash-es';
 import { mapPropsToForms, FormProps, PropToForm } from '@/types/propsMap';
 import { TextComponentProps } from '@/types/defaultProps';
-import { componentDataAtom, currentElementAtom } from '@/store/atorms/global';
+import { componentDataAtom, currentElementAtom, historyAtom } from '@/store/atorms/global';
 import { firstToUpper } from '@/util';
-
+import { v4 as uuidv4 } from 'uuid';
 import { IProps } from './editGroup';
 import styles from './index.less';
+import {cloneDeep} from 'lodash-es'
 const Index: React.FC<IProps> = (props) => {
   const [componentData, setComponentData] = useRecoilState(componentDataAtom);
   const [currentElementId, setElementId] = useRecoilState(currentElementAtom);
+  const [historyList,setHistory] = useRecoilState(historyAtom)
   if (props.props) {
     const propMap = props.props;
     const isLocked = propMap?.isLocked;
@@ -35,6 +37,14 @@ const Index: React.FC<IProps> = (props) => {
               [key]: value,
             },
           };
+          setHistory([...historyList, {
+            type: 'modify',
+            id: uuidv4(),
+            componentId: data.id,
+            data: {
+              oldValue: cloneDeep(data)
+            }
+          }])
           return newData;
         }
         return data;

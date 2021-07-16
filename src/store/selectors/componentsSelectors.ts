@@ -1,7 +1,7 @@
 import { selector } from 'recoil';
 import { getComponentList } from '@/api/componentList';
 import { IComponentData } from '@/types/componentData';
-import { componentDataAtom, currentElementAtom, pageBackgroundAtom } from '../atorms/global';
+import { componentDataAtom, currentElementAtom, pageBackgroundAtom, historyAtom } from '../atorms/global';
 
 export const getAllComponentList = selector({
     key: 'getComponentList',
@@ -9,6 +9,17 @@ export const getAllComponentList = selector({
         return await getComponentList();
     },
 });
+
+// export const getHistory = selector({
+//     key: 'getHistory',
+//     get: ({get}) => {
+//         const historyValue =  get(historyAtom)
+//         return {
+//             historyIndex: historyValue.historyIndex,
+//             histories: historyValue.histories
+//         }
+//     }
+// })
 
 export const getCurrentElement = selector<IComponentData>({
     key: 'getCurrentElement',
