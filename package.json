@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": " NODE_ENV=development webpack serve",
     "client:dev": "scripty",
     "client:server": "scripty",
     "client:prod": "scripty"
