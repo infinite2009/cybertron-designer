@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { IComponentData } from '@/types/componentData';
 import { useRecoilValue, useRecoilState } from 'recoil';
@@ -8,7 +8,15 @@ import componentMap from '@/types/componentMap'
 import styles from './index.less';
 import { initUseKeys } from '@/plugins/useKeys';
 // import useKeys from '@/hooks/useKeys'
+import { getParentElement } from '@/util'
 import { cloneDeep } from 'lodash-es'
+
+type actionType = 'add' | 'remove' | 'cancel'
+
+export interface ContextmenuList {
+    name: string;
+    type: actionType
+}
 // TODO
 // 待实现外层 div 拖动、点击选中、右键操作、nodeType 为文本选中出现 tool-bar
 const Index: React.FC = () => {
@@ -17,6 +25,8 @@ const Index: React.FC = () => {
     const [componentData, setComponentData] = useRecoilState<IComponentData[]>(componentDataAtom)
     const backgroundColor = useRecoilValue(pageBackgroundAtom)
     const [historyList, setHistory] = useRecoilState(historyAtom)
+    const menuContainer = useRef(null)
+    let [activeCurrentElement, setActiveCurrentElement] = useState(null)
     const updatePosition = (data:any)=> {
         const { id, width, height, left, top } = data
         let newData = [...componentData]
@@ -47,8 +57,64 @@ const Index: React.FC = () => {
         setComponentData(newData)
 
     }
+
+    const handleContext = (e:MouseEvent) => {
+        e.preventDefault()
+        const result = getParentElement(e.target as HTMLElement, 'edit-wrapper-box')
+        setActiveCurrentElement(result)
+        if(result) {
+            menuContainer.current.style.display = 'block'
+            menuContainer.current.style.top = e.pageY + 'px'
+            menuContainer.current.style.left = e.pageX + 'px'
+        }
+    }
+    useEffect(()=> {
+        document.addEventListener('contextmenu', handleContext)
+        return ()=> {
+            document.removeEventListener('contextmenu', handleContext)
+        }
+    })
+    const list:ContextmenuList[] = [
+        {
+            name: '新增图层',
+            type: 'add'
+        },
+        {
+            name: '删除图层',
+            type: 'remove',
+        },
+        {
+            name: '取消选中',
+            type: 'cancel'
+        }
+    ]
+    const contextmenuList = () => {
+        return <ul className={styles['menu-container']} ref={menuContainer} id="menuContainer">
+            {
+                list.map((item,index)=> {
+                    return <li onClick={()=>handleContextAction(item.type)} key={index}>
+                        {item.name}
+                    </li>
+                })
+            }
+        </ul>
+        
+    }
+    const handleContextAction = (type: actionType) =>{
+        setActiveCurrentElement(null)
+        switch(type) {
+            case 'add':
+                break
+            case 'remove':
+                break
+            case 'cancel':
+                break
+        }
+    }
+
     return (
         <div className={styles.content}>
+            { activeCurrentElement ? contextmenuList() : null }
             <div className={styles['canvas-area']} style={{background: backgroundColor}} id="canvas-area" >
             {componentData.map((item: IComponentData) => {
                 const Component = componentMap[item.type].component as unknown as any

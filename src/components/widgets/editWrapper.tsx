@@ -177,6 +177,7 @@ const EditWrapper: React.FC<IProps> = (props) => {
       className={classNames(
         styles['edit-wrapper'],
         currentElement === props.id ? styles['active'] : '',
+        'edit-wrapper-box'
       )}
       onClick={onItemClick}
       onMouseDown={startMove}

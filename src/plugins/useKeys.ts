@@ -14,16 +14,14 @@ export const initUseKeys = () => {
     let [historyIndex, setHistoryIndex] = useRecoilState<number>(historyIndexAtom)
     // 粘贴图层
     useHotkeys('ctrl+c, command+c', ()=> {
-        console.log('currentElementAtom', currentElement)
         if(!currentElement) {
             message.warning('请选择需要复制的图层！')
         } else {
             const currentComponents = componentData.filter(v=>v.id === currentElement)
-            console.log(currentComponents)
             copyComponents = currentComponents[0]
             message.success('图层拷贝成功！')
         }
-    }, {}, [currentElement])
+    }, {}, [currentElement, componentData])
     // 复制图层
     useHotkeys('ctrl+v, command+v', ()=> {
         if(currentElement && copyComponents) {
@@ -58,7 +56,7 @@ export const initUseKeys = () => {
         } else {
             message.warning('请使用ctrl+c, command+c选择需要复制的图层！')
         }
-    }, {}, [currentElement])
+    }, {}, [currentElement, componentData])
     // 删除图层
     useHotkeys('ctrl+backspace, command+backspace', ()=> {
         if(currentElement) {
@@ -72,7 +70,7 @@ export const initUseKeys = () => {
                     id: uuidv4(),
                     componentId: deleteComponet.id,
                     type: 'delete',
-                    data: deleteComponet,
+                    data: cloneDeep(deleteComponet),
                     index
                 }
             ]
@@ -84,11 +82,10 @@ export const initUseKeys = () => {
 
     },{
         filterPreventDefault: true
-    }, [currentElement])
-    // 撤销 
+    }, [currentElement, componentData])
+    // 撤销图层 
     useHotkeys('ctrl+z, command+z',  (event: KeyboardEvent)=> {
         event.preventDefault()
-        console.log(historyIndex)
         if(!historyList.length) return
         if(historyIndex===-1) {
             historyIndex = historyList.length - 1
@@ -96,10 +93,7 @@ export const initUseKeys = () => {
         } else {
             setHistoryIndex(historyIndex--)
         }
-        if(historyIndex < 0) {
-            // setHistory([])
-            return
-        }
+        if(historyIndex < 0) return
         const history = historyList[historyIndex] as HistoryProps
         let newData:IComponentData[] = []
         switch(history.type) {
@@ -116,7 +110,6 @@ export const initUseKeys = () => {
                 newData = [...componentData]
                 let resultData = newData.map(component=> {
                     if(component.id===componentId) {
-                        console.log(data.oldValue.props)
                         return data.oldValue
                     }
                 return component
@@ -124,9 +117,7 @@ export const initUseKeys = () => {
                 setComponentData(resultData)
                 break
         }
-
     },{
         filterPreventDefault: true
     }, [historyList, historyIndex])
-
 }
