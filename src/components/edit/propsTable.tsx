@@ -37,6 +37,7 @@ const Index: React.FC<IProps> = (props) => {
               [key]: value,
             },
           };
+          // alert(1)
           setHistory([...historyList, {
             type: 'modify',
             id: uuidv4(),

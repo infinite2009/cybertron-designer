@@ -19,8 +19,8 @@ const mockComponentData: Array<IComponentData> = [
             color: 'red',
             backgroundColor: "green",
             // position: 'absolute',
-            left: '100px', 
-            top: '150px'
+            left: '0px', 
+            top: '-1.5px'
         }
     },
     // {

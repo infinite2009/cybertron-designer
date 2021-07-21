@@ -2,12 +2,18 @@ const { join, resolve } = require("path");
 const merge = require('webpack-merge');
 const WebpackBar = require('webpackbar');
 
+// http://182.92.168.192:8081
 // 获取命令执行中的参数
 const argv = require('yargs-parser')(process.argv.slice(2));
 const _mode = argv.mode || 'development';
 const _modeFlag = _mode === "production";
 const _mergeConfig = require(`./config/webpack.${_mode}.js`);
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require('dotenv-webpack')
+
+const getConfigPath = (mode) => {
+  return resolve(__dirname, `.env.${mode}`)
+}
 
 const webpackBaseConfig = {
   entry: {
@@ -70,7 +76,10 @@ const webpackBaseConfig = {
       chunkFilename: _modeFlag ? "styles/[id].[contenthash:5].css" : "styles/[id].css",
       ignoreOrder: true,
     }),
-    new WebpackBar()
+    new WebpackBar(),
+    new Dotenv({
+      path: getConfigPath(_mode)
+    })
   ]
 };
 

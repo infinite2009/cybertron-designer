@@ -95,6 +95,7 @@ export const initUseKeys = () => {
         }
         if(historyIndex < 0) return
         const history = historyList[historyIndex] as HistoryProps
+        // console.log(historyList)
         let newData:IComponentData[] = []
         switch(history.type) {
             case 'add':
@@ -110,6 +111,11 @@ export const initUseKeys = () => {
                 newData = [...componentData]
                 let resultData = newData.map(component=> {
                     if(component.id===componentId) {
+                        const dom = document.getElementById(`wrapper${componentId}`)
+                        dom.style.width = data.oldValue.props.width
+                        dom.style.height = data.oldValue.props.height
+                        dom.style.left = data.oldValue.props.left 
+                        dom.style.top = data.oldValue.props.top 
                         return data.oldValue
                     }
                 return component

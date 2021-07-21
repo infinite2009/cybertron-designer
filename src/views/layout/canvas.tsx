@@ -10,7 +10,6 @@ import { initUseKeys } from '@/plugins/useKeys';
 // import useKeys from '@/hooks/useKeys'
 import { getParentElement } from '@/util'
 import { cloneDeep } from 'lodash-es'
-
 type actionType = 'add' | 'remove' | 'cancel'
 
 export interface ContextmenuList {
@@ -19,8 +18,10 @@ export interface ContextmenuList {
 }
 // TODO
 // 待实现外层 div 拖动、点击选中、右键操作、nodeType 为文本选中出现 tool-bar
-const Index: React.FC = () => {
+const Index: React.FC = (props) => {
+
     initUseKeys()
+    // console.log(process.env.DB_HOST)
     // const componentData:  = useRecoilValue(componentDataAtom);
     const [componentData, setComponentData] = useRecoilState<IComponentData[]>(componentDataAtom)
     const backgroundColor = useRecoilValue(pageBackgroundAtom)
@@ -42,6 +43,8 @@ const Index: React.FC = () => {
                         top: top + 'px'
                     }
                 }
+                // alert(2)
+                console.log(componet)
                 setHistory([...historyList, {
                     type: 'modify',
                     id: uuidv4(),
@@ -68,10 +71,18 @@ const Index: React.FC = () => {
             menuContainer.current.style.left = e.pageX + 'px'
         }
     }
+
+    const bodyClick = (e: MouseEvent) => {
+        setActiveCurrentElement(null)
+    }
     useEffect(()=> {
         document.addEventListener('contextmenu', handleContext)
+        
+        document.addEventListener('click', bodyClick)
+
         return ()=> {
             document.removeEventListener('contextmenu', handleContext)
+            document.removeEventListener('click', bodyClick)
         }
     })
     const list:ContextmenuList[] = [
@@ -120,7 +131,7 @@ const Index: React.FC = () => {
                 const Component = componentMap[item.type].component as unknown as any
                 return (
                     !item.isHidden ?
-                    <EditWrapper key={item.id} id={item.id} updatePosition={updatePosition} >
+                    <EditWrapper key={item.id} id={item.id} width={item.props.width || '100px'} height={item.props.height || '100px'} updatePosition={updatePosition} >
                         {/* 到时候需要根据数据循环递归去遍历 */}
                         {/* {createElement(
                                 item.type,
