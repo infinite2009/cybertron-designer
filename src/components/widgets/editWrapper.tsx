@@ -1,7 +1,8 @@
-import React, {MouseEvent, useRef} from 'react';
+import React, {MouseEvent, useRef,useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {useRecoilState} from 'recoil';
+// import { IComponentData } from '@/types/componentData';
 import {currentElementAtom} from '@/store/atorms/global';
 import styles from './index.less';
 type ResizeDirection =
@@ -19,9 +20,14 @@ interface OriginalPositions {
 export interface IProps {
   updatePosition?: Function;
   id: string;
+  width: string;
+  height: string;
 }
 const EditWrapper: React.FC<IProps> = (props) => {
-  const [currentElement, setElementId] = useRecoilState(currentElementAtom);
+  let [currentElement, setElementId] = useRecoilState(currentElementAtom);
+  // let [componentData, setComponentData] = useRecoilState<IComponentData[]>(componentDataAtom)
+  // let result = componentData.find(v=>v.id===currentElement)
+  // console.log('result', result)
   const editWrapperDiv = useRef<HTMLDivElement | null>(null);
   const gap = {
     x: 0,
@@ -29,6 +35,8 @@ const EditWrapper: React.FC<IProps> = (props) => {
   };
   let isMoving = false;
   const onItemClick = () => {
+    // alert(1)
+    currentElement = props.id
     setElementId(props.id);
   };
 
@@ -61,6 +69,7 @@ const EditWrapper: React.FC<IProps> = (props) => {
       const {left, top} = caculateMovePosition(e);
       isMoving = true;
       if (editWrapperDiv.current) {
+        // console.log(gap.x, gap.y)
         let dom = editWrapperDiv.current.childNodes[0] as HTMLElement
         dom.style.top = top + 'px';
         dom.style.left = left + 'px';
@@ -76,7 +85,8 @@ const EditWrapper: React.FC<IProps> = (props) => {
         const {left, top} = caculateMovePosition(e);
         isMoving = false;
         if (props.updatePosition) {
-          props.updatePosition({id: props.id, left, top});
+          const {width,height} = editWrapperDiv.current.style
+          props.updatePosition({id: props.id, left, top, width, height});
         }
       }
     };
@@ -171,10 +181,13 @@ const EditWrapper: React.FC<IProps> = (props) => {
   return (
     <div
       ref={editWrapperDiv}
+      id={'wrapper'+props.id}
       className={classNames(
         styles['edit-wrapper'],
         currentElement === props.id ? styles['active'] : '',
+        'edit-wrapper-box'
       )}
+      style={{width: props.width,height: props.height}}
       onClick={onItemClick}
       onMouseDown={startMove}
     >

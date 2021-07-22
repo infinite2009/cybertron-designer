@@ -53,3 +53,33 @@ export function firstToUpper(str){
       return $1.toUpperCase() + $2.toLowerCase();
   });
 }
+/**
+ * 数组插入
+ * @param arr 
+ * @param index 
+ * @param newItem 
+ * @returns 
+ */
+export const insertAt = (arr: any[], index: number, newItem: any) => {
+  return [
+    ...arr.slice(0, index),
+    newItem,
+    ...arr.slice(index)
+  ]
+}
+/**
+ * 
+ * @param element 
+ * @param className 
+ * @returns 
+ */
+export const getParentElement = (element: HTMLElement, className: string) => {
+  while (element) {
+    if (element.classList && element.classList.contains(className)) {
+      return element
+    } else {
+      element = element.parentNode as HTMLElement
+    }
+  }
+  return null
+}

@@ -82,6 +82,14 @@ export const mapPropsToForms: PropsToForms = {
         ...pxToNumberHandler,
         text: '下边距',
     },
+    left: {
+        ...pxToNumberHandler,
+        text: 'X',
+    },
+    top: {
+        ...pxToNumberHandler,
+        text: 'Y',
+    },
     lineHeight: {
         text: '行高',
         component: Slider,
