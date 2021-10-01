@@ -1,8 +1,9 @@
-import {ImageComponentProps, TextComponentProps} from '@/types/defaultProps';
+import { ImageComponentProps, TextComponentProps } from '@/types/defaultProps';
 /** 左边的组件 */
 export interface IComponentList {
   type: number;
   typeName: string;
+  tag?: string;
   list: ITemplateProps[];
 }
 

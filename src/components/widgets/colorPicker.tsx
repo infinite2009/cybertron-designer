@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { SketchPicker } from 'react-color';
 import styles from './colorPicker.less';
 interface IProps {
@@ -18,10 +18,11 @@ const ColorPicker: React.FC<IProps> = (props) => {
     setSisplayColorPicker(false);
   };
 
-  const handleChange = (color) => {
+  const handleChange = useCallback((color) => {
     setColor(color.hex);
     props.onChange(color.hex);
-  };
+  }, [color])
+
 
   return (
     <div>

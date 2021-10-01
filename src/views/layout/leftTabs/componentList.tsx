@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { ITemplateProps } from '@/types/componentList';
 import { useRecoilState } from 'recoil';
 import { componentDataAtom, historyAtom, HistoryProps } from '@/store/atorms/global';
-import { textDefaultProps} from "@/types/defaultProps"
+import { textDefaultProps } from "@/types/defaultProps"
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep } from 'lodash-es'
 import styles from './index.less';
@@ -20,20 +20,20 @@ const ComponentList: FC<IProps> = (props) => {
       id: uuidv4(),
       name: item.name,
       type: item.type,
-      layerName: `图层${newcomponentData.length+1}`,
+      layerName: `图层${newcomponentData.length + 1}`,
       props: {
         ...textDefaultProps
       },
     };
     newcomponentData.push(newItem);
 
-    const newHistoryList:HistoryProps[] = [
+    const newHistoryList: HistoryProps[] = [
       ...historyList,
       {
-          id: uuidv4(),
-          componentId: newItem.id,
-          type: 'add',
-          data: cloneDeep(newItem),
+        id: uuidv4(),
+        componentId: newItem.id,
+        type: 'add',
+        data: cloneDeep(newItem),
       }
     ]
     setHistory(newHistoryList)

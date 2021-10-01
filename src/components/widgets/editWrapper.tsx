@@ -1,9 +1,9 @@
-import React, {MouseEvent, useRef,useEffect } from 'react';
+import React, { MouseEvent, useRef } from 'react';
 // import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {useRecoilState} from 'recoil';
+import { useRecoilState } from 'recoil';
 // import { IComponentData } from '@/types/componentData';
-import {currentElementAtom} from '@/store/atorms/global';
+import { currentElementAtom } from '@/store/atorms/global';
 import styles from './index.less';
 type ResizeDirection =
   | 'top-left'
@@ -25,20 +25,15 @@ export interface IProps {
 }
 const EditWrapper: React.FC<IProps> = (props) => {
   let [currentElement, setElementId] = useRecoilState(currentElementAtom);
-  // let [componentData, setComponentData] = useRecoilState<IComponentData[]>(componentDataAtom)
-  // let result = componentData.find(v=>v.id===currentElement)
-  // console.log('result', result)
+
   const editWrapperDiv = useRef<HTMLDivElement | null>(null);
   const gap = {
     x: 0,
     y: 0,
   };
   let isMoving = false;
-  const onItemClick = () => {
-    // alert(1)
-    currentElement = props.id
-    setElementId(props.id);
-  };
+  // 点击选中当前操作元素
+  const onItemClick = () => setElementId(props.id)
 
   const caculateMovePosition = (e: globalThis.MouseEvent) => {
     const container = document.getElementById('canvas-area') as HTMLElement;
@@ -59,14 +54,14 @@ const EditWrapper: React.FC<IProps> = (props) => {
     // console.log(e)
     // const canvasArea = document.getElementById('canvas-area')
     if (editWrapperDiv.current) {
-      const {left, top} = editWrapperDiv.current.getBoundingClientRect();
+      const { left, top } = editWrapperDiv.current.getBoundingClientRect();
       // console.log(e.clientX, e.clientY, )
       gap.x = e.clientX - left;
       gap.y = e.clientY - top;
     }
     // console.log(canvasArea)
     const handleMove = (e: globalThis.MouseEvent) => {
-      const {left, top} = caculateMovePosition(e);
+      const { left, top } = caculateMovePosition(e);
       isMoving = true;
       if (editWrapperDiv.current) {
         // console.log(gap.x, gap.y)
@@ -82,11 +77,11 @@ const EditWrapper: React.FC<IProps> = (props) => {
       document.removeEventListener('mousemove', handleMove);
       document.removeEventListener('mouseup', handleMouseUp);
       if (isMoving) {
-        const {left, top} = caculateMovePosition(e);
+        const { left, top } = caculateMovePosition(e);
         isMoving = false;
         if (props.updatePosition) {
-          const {width,height} = editWrapperDiv.current.style
-          props.updatePosition({id: props.id, left, top, width, height});
+          const { width, height } = editWrapperDiv.current.style
+          props.updatePosition({ id: props.id, left, top, width, height });
         }
       }
     };
@@ -100,8 +95,8 @@ const EditWrapper: React.FC<IProps> = (props) => {
     e: globalThis.MouseEvent,
     positions: OriginalPositions,
   ) => {
-    const {clientX, clientY} = e;
-    const {left, right, top, bottom} = positions;
+    const { clientX, clientY } = e;
+    const { left, right, top, bottom } = positions;
     const container = document.getElementById('canvas-area') as HTMLElement;
     const rightWidth = clientX - left;
     const leftWidth = right - clientX;
@@ -146,10 +141,10 @@ const EditWrapper: React.FC<IProps> = (props) => {
   const startResize = (e: MouseEvent, direction: ResizeDirection) => {
     e.stopPropagation();
     const currentElement = editWrapperDiv.current;
-    const {left, right, top, bottom} = currentElement.getBoundingClientRect();
+    const { left, right, top, bottom } = currentElement.getBoundingClientRect();
     const handleMove = (e: globalThis.MouseEvent) => {
-      const size = caculateSize(direction, e, {left, right, top, bottom});
-      const {style} = currentElement;
+      const size = caculateSize(direction, e, { left, right, top, bottom });
+      const { style } = currentElement;
       let dom = editWrapperDiv.current.childNodes[0] as HTMLElement
       if (size) {
         style.width = size.width + 'px';
@@ -169,9 +164,9 @@ const EditWrapper: React.FC<IProps> = (props) => {
 
     const handleMouseUp = (e: globalThis.MouseEvent) => {
       document.removeEventListener('mousemove', handleMove);
-      const size = caculateSize(direction, e, {left, right, top, bottom});
-      if(props.updatePosition) {
-        props.updatePosition({...size, id: props.id})
+      const size = caculateSize(direction, e, { left, right, top, bottom });
+      if (props.updatePosition) {
+        props.updatePosition({ ...size, id: props.id })
       }
       document.removeEventListener('mouseup', handleMouseUp);
     };
@@ -181,13 +176,13 @@ const EditWrapper: React.FC<IProps> = (props) => {
   return (
     <div
       ref={editWrapperDiv}
-      id={'wrapper'+props.id}
+      id={'wrapper' + props.id}
       className={classNames(
         styles['edit-wrapper'],
         currentElement === props.id ? styles['active'] : '',
         'edit-wrapper-box'
       )}
-      style={{width: props.width,height: props.height}}
+      style={{ width: props.width, height: props.height }}
       onClick={onItemClick}
       onMouseDown={startMove}
     >

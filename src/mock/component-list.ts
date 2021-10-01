@@ -1,6 +1,6 @@
-import {v4 as uuidv4} from 'uuid';
-import {IComponentList} from '@/types/componentList';
-import {commonDefaultProps, textDefaultProps} from '@/types/defaultProps';
+import { v4 as uuidv4 } from 'uuid';
+import { IComponentList } from '@/types/componentList';
+import { commonDefaultProps, textDefaultProps } from '@/types/defaultProps';
 
 const mockComponentList: Array<IComponentList> = [
   {
@@ -27,10 +27,20 @@ const mockComponentList: Array<IComponentList> = [
       },
       {
         id: uuidv4(),
+        name: '按钮',
+        type: 'text-widget',
+        icon: 'BuildOutlined',
+        props: {
+          ...textDefaultProps,
+          tag: "button",
+        },
+      },
+      {
+        id: uuidv4(),
         name: '图片',
         type: 'image-widget',
         icon: 'BuildOutlined',
-        props:{
+        props: {
 
         }
       },
@@ -39,7 +49,7 @@ const mockComponentList: Array<IComponentList> = [
         name: '列表',
         type: 'list-widget',
         icon: 'BuildOutlined',
-        props:{}
+        props: {}
       },
     ],
   },
@@ -52,35 +62,9 @@ const mockComponentList: Array<IComponentList> = [
         name: '列表',
         type: 'list',
         icon: 'BuildOutlined',
-        props:{}
-      },
-      {
-        id: uuidv4(),
-        name: '列表',
-        type: 'list',
-        icon: 'BuildOutlined',
-        props:{}
-      },
-      {
-        id: uuidv4(),
-        name: '列表',
-        type: 'list',
-        icon: 'BuildOutlined',
-        props:{}
-      },
-      {
-        id: uuidv4(),
-        name: '列表',
-        type: 'list',
-        icon: 'BuildOutlined',
-        props:{}
+        props: {}
       },
     ],
-  },
-  {
-    type: 3,
-    typeName: '第三方',
-    list: [],
   },
 ];
 

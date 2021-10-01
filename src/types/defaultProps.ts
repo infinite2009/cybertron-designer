@@ -1,4 +1,5 @@
 import { mapValues, without } from 'lodash-es';
+import { type } from 'os';
 export interface CommonComponentProps {
   // actions
   actionType: string;
@@ -20,10 +21,10 @@ export interface CommonComponentProps {
   opacity: string;
   backgroundColor: string;
   // position and x,y
-  // position: string;
-  // left: string;
-  // top: string;
-  // right: string;
+  position: string;
+  left: string;
+  top: string;
+  right: string;
 }
 export const commonDefaultProps: CommonComponentProps = {
   // actions
@@ -46,12 +47,13 @@ export const commonDefaultProps: CommonComponentProps = {
   opacity: '1',
   backgroundColor: 'green',
   // position and x,y
-  // position: 'relative'
-  // left: '0',
-  // top: '0',
-  // right: '0'
+  position: 'relative',
+  left: '0',
+  top: '0',
+  right: '0'
 };
 export interface TextComponentProps extends CommonComponentProps {
+  tag: string;
   text: string;
   fontSize: string;
   fontFamily: string;
@@ -61,15 +63,14 @@ export interface TextComponentProps extends CommonComponentProps {
   lineHeight: string;
   textAlign: string;
   color: string;
-  left: string;
-  top: string
 }
 export const textDefaultProps: TextComponentProps = {
   // basic props - font styles
   ...commonDefaultProps,
   height: '100px',
   width: '100%',
-  text: '正文内容',
+  tag: "div",
+  text: '文本内容',
   fontSize: '14px',
   fontFamily: '',
   fontWeight: 400,
@@ -90,12 +91,16 @@ export const imageDefaultProps: ImageComponentProps = {
   src: 'test.url',
   ...commonDefaultProps,
 };
-export const textStylePropNames = without(
+export const textStylePropNames: string[] = without(
   Object.keys(textDefaultProps),
   'actionType',
   'url',
   'text',
+  "tag"
 );
+
+export type textTypeProps = Omit<TextComponentProps, "actionType" | 'url' | 'text' | 'tag'>
+
 export const transformToComponentProps = (props: TextComponentProps) => {
   return mapValues(props, (item) => {
     return {

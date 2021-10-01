@@ -5,4 +5,8 @@ import 'antd/dist/antd.css';
 import '@/styles/styles.less';
 import 'cropperjs/dist/cropper.css'
 
-ReactDOM.render(<App></App>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
+
+if (module.hot) {
+    module.hot.accept()
+}

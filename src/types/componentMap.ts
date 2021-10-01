@@ -1,5 +1,4 @@
 import Reat from 'react';
-import { Button, Input, Slider, Select } from 'antd';
 import TextWidget from '@/components/widgets/text';
 import ContainerWidget from '@/components/widgets/container';
 import ImageWidget from '@/components/widgets/image';
@@ -14,6 +13,7 @@ export interface IComponentToFrom {
     [key: string]: IComponentType;
 }
 
+// 组件、name 映射关系、实现 Vue 的 component.is
 const componentMap: IComponentToFrom = {
     'container-widget': {
         name: '容器组件组件',
