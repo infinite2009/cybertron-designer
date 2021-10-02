@@ -1,69 +1,87 @@
-const mockComponentList = [
+import {v4 as uuidv4} from 'uuid';
+import {IComponentList} from '@/types/componentList';
+import {commonDefaultProps, textDefaultProps} from '@/types/defaultProps';
+
+const mockComponentList: Array<IComponentList> = [
   {
     type: 1,
     typeName: '通用',
     list: [
       {
-        id: 0,
+        id: uuidv4(),
         name: '容器',
-        type: 'container-widget',
-        icon: 'BuildOutlined'
+        type: 'container-widget', // ContainerWidget ro container-widget
+        icon: 'BuildOutlined',
+        props: {
+          ...commonDefaultProps,
+        },
       },
       {
-        id: 1,
+        id: uuidv4(),
         name: '文本',
         type: 'text-widget',
-        icon: 'BuildOutlined'
+        icon: 'BuildOutlined',
+        props: {
+          ...textDefaultProps,
+        },
       },
       {
-        id: 2,
+        id: uuidv4(),
         name: '图片',
         type: 'image-widget',
-        icon: 'BuildOutlined'
+        icon: 'BuildOutlined',
+        props:{
+
+        }
       },
       {
-        id: 3,
+        id: uuidv4(),
         name: '列表',
         type: 'list-widget',
-        icon: 'BuildOutlined'
-      }
-    ]
+        icon: 'BuildOutlined',
+        props:{}
+      },
+    ],
   },
   {
     type: 2,
     typeName: '自定义',
     list: [
       {
-        id: 0,
+        id: uuidv4(),
         name: '列表',
         type: 'list',
-        icon: 'BuildOutlined'
+        icon: 'BuildOutlined',
+        props:{}
       },
       {
-        id: 1,
+        id: uuidv4(),
         name: '列表',
         type: 'list',
-        icon: 'BuildOutlined'
+        icon: 'BuildOutlined',
+        props:{}
       },
       {
-        id: 3,
+        id: uuidv4(),
         name: '列表',
         type: 'list',
-        icon: 'BuildOutlined'
+        icon: 'BuildOutlined',
+        props:{}
       },
       {
-        id: 3,
+        id: uuidv4(),
         name: '列表',
         type: 'list',
-        icon: 'BuildOutlined'
-      }
-    ]
+        icon: 'BuildOutlined',
+        props:{}
+      },
+    ],
   },
   {
     type: 3,
     typeName: '第三方',
-    list: []
-  }
+    list: [],
+  },
 ];
 
 export default mockComponentList;

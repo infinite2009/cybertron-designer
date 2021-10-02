@@ -5,8 +5,8 @@ import { v4 as uuid } from 'uuid';
 import SchemaOperator from '@/interface/SchemaOperator';
 import SchemaOperationPayload from '@/interface/schema-operation-payload';
 import StyleValueUnit from '@/enum/style-value-unit';
-import DynamicObject from '@/interface/dynamic-object';
 import Layout from '@/enum/layout';
+import DynamicObject from '@/interface/dynamic-object';
 
 const borderStyle = {
   borderTop: {
@@ -316,11 +316,17 @@ class SchemaService implements SchemaOperator {
     console.error(`${data.type} not found`);
   }
 
-  deleteWidget(payload: SchemaOperationPayload): any {}
+  deleteWidget(payload: SchemaOperationPayload): any {
+    console.log('payload: ', payload);
+  }
 
-  moveWidget(payload: SchemaOperationPayload): any {}
+  moveWidget(payload: SchemaOperationPayload): any {
+    console.log('payload: ', payload);
+  }
 
-  updateWidget(payload: SchemaOperationPayload): any {}
+  updateWidget(payload: SchemaOperationPayload): any {
+    console.log('payload: ', payload);
+  }
 }
 
 export default new SchemaService();
