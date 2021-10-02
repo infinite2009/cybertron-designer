@@ -15,4 +15,6 @@ jest
 
 ## dumi 接入
 
-## 编译待换成 swc-loader、编译比 babel 快 10 倍、待验证
+## husk 待接入
+
+## 单元测试
