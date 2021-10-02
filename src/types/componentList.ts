@@ -1,4 +1,5 @@
 import { ImageComponentProps, TextComponentProps } from '@/types/defaultProps';
+import { type } from 'os';
 /** 左边的组件 */
 export interface IComponentList {
   type: number;
@@ -7,11 +8,13 @@ export interface IComponentList {
   list: ITemplateProps[];
 }
 
+export type componentType = "text-widget" | "image-widget" | "container-widget"
+
 /** 具体每个组件的信息 */
 export interface ITemplateProps {
   id: string;
   name: string;
-  type: string;
+  type: componentType;
   icon?: string;
   // 图层名称
   layerName?: string;

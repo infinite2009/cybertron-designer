@@ -88,24 +88,11 @@ export interface ImageComponentProps extends CommonComponentProps {
   src: string;
 }
 export const imageDefaultProps: ImageComponentProps = {
-  src: 'test.url',
+  src: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180721%2Fdd58d97982aa4d5eae06efe62c563b88.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635744462&t=9aae693ece0ea49bcb1fc5f8f85389f0",
   ...commonDefaultProps,
 };
-export const textStylePropNames: string[] = without(
-  Object.keys(textDefaultProps),
-  'actionType',
-  'url',
-  'text',
-  "tag"
-);
 
-export type textTypeProps = Omit<TextComponentProps, "actionType" | 'url' | 'text' | 'tag'>
+export const textStylePropNames: string[] = without(Object.keys(textDefaultProps), 'actionType', 'url', 'text', "tag");
 
-export const transformToComponentProps = (props: TextComponentProps) => {
-  return mapValues(props, (item) => {
-    return {
-      type: item.constructor as StringConstructor,
-      default: item,
-    };
-  });
-};
+export const imageStylePropsNames: string[] = without(Object.keys(textDefaultProps), 'actionType', 'url', 'text', "tag", "src");
+

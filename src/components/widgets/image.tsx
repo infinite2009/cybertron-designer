@@ -1,10 +1,17 @@
 import React from 'react'
+import { ImageComponentProps, imageStylePropsNames, textDefaultProps } from "@/types/defaultProps"
+import useComponentCommon from "@/hooks/useComponentCommon"
 
-// props 属性待整合、待更细致化的拆分
-const ImageWidget = (props) => {
-    const { text, ...restProps } = props
+const ImageWidget = (props: ImageComponentProps) => {
+    const { styleProps, handleClick } = useComponentCommon(props, imageStylePropsNames)
+
     return (
-        <img {...restProps} />
+        <img src={props.src} style={{ ...styleProps }} onClick={handleClick} />
     )
 }
+
+ImageWidget.defaultProps = {
+    ...textDefaultProps
+}
+
 export default ImageWidget

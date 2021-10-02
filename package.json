@@ -46,6 +46,7 @@
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.6",
     "dotenv-webpack": "^7.0.3",
+    "eslint": "^7.32.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^5.3.1",
     "husky": "^7.0.2",

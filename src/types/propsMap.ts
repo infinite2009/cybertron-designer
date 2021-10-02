@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { Input, InputNumber, Slider, Select, Radio } from 'antd';
-// import { SketchPicker } from 'react-color'
+import Upload from '@/components/widgets/uploader'
 import SketchPicker from '@/components/widgets/colorPicker';
-import { TextComponentProps } from './defaultProps';
+import { TextComponentProps, ImageComponentProps } from './defaultProps';
 import fontFamilyOptions from '../components/widgets/fontFamilyOptions';
 
 const TextArea = Input.TextArea;
@@ -36,8 +36,10 @@ export interface FormProps {
     events?: { [key: string]: (e: any) => void };
 }
 
+export type AllComponentProps = TextComponentProps & ImageComponentProps;
+
 export type PropsToForms = {
-    [P in keyof TextComponentProps]?: PropToForm;
+    [P in keyof AllComponentProps]?: PropToForm;
 };
 
 const pxToNumberHandler: PropToForm = {
@@ -53,6 +55,11 @@ export const mapPropsToForms: PropsToForms = {
         value: 'test',
         extraProps: { rows: 3 },
         afterTransform: (e: any) => e.target.value,
+    },
+    url: {
+        component: Input,
+        afterTransform: (e: any) => e.target.value,
+        text: '链接地址'
     },
     fontSize: {
         text: '字号',
@@ -165,4 +172,8 @@ export const mapPropsToForms: PropsToForms = {
         text: '背景颜色',
         valueProp: 'color',
     },
+    src: {
+        component: Upload,
+        valueProp: "src"
+    }
 };

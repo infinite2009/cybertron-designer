@@ -1,22 +1,23 @@
 import { memo, createElement } from 'react';
+import useComponentCommon from "@/hooks/useComponentCommon"
 import { TextComponentProps, textDefaultProps, textStylePropNames } from '@/types/defaultProps';
 
-// props 属性待整合
 const TextWidget = (props: TextComponentProps) => {
-    let { tag, text, ...restProps } = props;
+    let { tag, text } = props;
     if (!tag) {
         tag = 'div';
     }
-    // style 需要去除 'actionType','url','text', "tag" 属性
+    const { styleProps, handleClick } = useComponentCommon(props, textStylePropNames)
     return createElement(
         tag,
         {
-            style: { ...restProps },
+            style: { ...styleProps },
+            onClick: handleClick
         },
         text,
     );
 };
 TextWidget.defaultProps = {
-    textDefaultProps,
+    ...textDefaultProps,
 };
 export default memo(TextWidget);
