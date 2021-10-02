@@ -1,6 +1,6 @@
 import React from 'react';
-import ColorPicker from '../widgets/colorPicker';
-import Uploader from '../widgets/uploader';
+import ColorPicker from '@/components/widgets/colorPicker';
+import Uploader from '@/components/widgets/uploader';
 import { useRecoilState } from 'recoil';
 import { pageBackgroundAtom } from '@/store/atorms/global';
 import { SuccessProps } from '@/components/widgets/uploader';

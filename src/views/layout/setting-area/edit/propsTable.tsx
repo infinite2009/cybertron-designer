@@ -11,7 +11,7 @@ import {
 } from '@/store/atorms/global';
 import { firstToUpper } from '@/util';
 import { v4 as uuidv4 } from 'uuid';
-import { IProps } from './editGroup';
+import { IProps } from '.';
 import styles from './index.less';
 import { cloneDeep } from 'lodash-es';
 

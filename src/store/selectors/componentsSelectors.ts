@@ -1,4 +1,4 @@
-import { selector } from 'recoil';
+import { selector, selectorFamily } from 'recoil';
 import { getComponentList } from '@/api/componentList';
 import { IComponentData } from '@/types/componentData';
 import { componentDataAtom, currentElementAtom, pageBackgroundAtom, historyAtom } from '../atorms/global';

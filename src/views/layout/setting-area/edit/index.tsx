@@ -36,7 +36,7 @@ const defaultEditGroups: GroupProps[] = [
 export interface IProps {
     props: any;
 }
-const EditGroup:FC<IProps> = (props) => {
+const EditGroup: FC<IProps> = (props) => {
     if (props.props) {
         const propMap = props.props
         const allNormalProps = defaultEditGroups.reduce((prev, current) => {
@@ -52,7 +52,7 @@ const EditGroup:FC<IProps> = (props) => {
             ...defaultEditGroups
         ]
         const editGroups = newGroups.map((group: GroupProps) => {
-            const propsMap = {} 
+            const propsMap = {}
             group.items.forEach(item => {
                 const key = item as keyof TextComponentProps
                 propsMap[key] = propMap[key]
@@ -62,8 +62,6 @@ const EditGroup:FC<IProps> = (props) => {
                 props: propsMap
             }
         })
-
-        // console.log('editGroups', editGroups)
 
         return (
             <Collapse defaultActiveKey={editGroups[0].text}>

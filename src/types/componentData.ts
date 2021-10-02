@@ -1,4 +1,4 @@
-import { TextComponentProps } from './defaultProps';
+import { TextComponentProps, ImageComponentProps } from './defaultProps';
 export interface IComponentData {
     /** uuid v4 生成 */
     id: string;
@@ -15,7 +15,5 @@ export interface IComponentData {
     /** 是否锁定 */
     isLocked?: boolean;
     /** 组件属性 详情见 defaultProps */
-    props: {
-        [key in keyof TextComponentProps]?: any;
-    };
+    props: Partial<ImageComponentProps & TextComponentProps>
 }

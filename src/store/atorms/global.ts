@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { getComponentData } from '@/util/store'
 
-/** 当前选中的元素 */
+/** 当前选中的元素ID */
 export const currentElementAtom = atom({
     key: 'currentElement',
     default: null,

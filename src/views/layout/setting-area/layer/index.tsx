@@ -1,15 +1,15 @@
-import React, {MouseEvent} from 'react';
-import {useRecoilValue, useRecoilState} from 'recoil';
-import {Tabs, Row, Tooltip, Empty} from 'antd';
+import React, { MouseEvent } from 'react';
+import { useRecoilState } from 'recoil';
+import { Tooltip, Empty } from 'antd';
 import {
   EyeOutlined,
   EyeInvisibleOutlined,
   LockOutlined,
   UnlockOutlined,
 } from '@ant-design/icons';
-import {ITemplateProps} from '@/types/componentList';
-import {IComponentData} from '@/types/componentData';
-import {componentDataAtom, currentElementAtom} from '@/store/atorms/global';
+import LnlineEdit from '@/components/lnlineEdit'
+import { IComponentData } from '@/types/componentData';
+import { componentDataAtom } from '@/store/atorms/global';
 import {
   DragDropContext,
   Droppable,
@@ -17,21 +17,22 @@ import {
   DropResult,
 } from 'react-beautiful-dnd';
 import styles from './index.less';
+
 export interface Iprops {
   props: IComponentData;
+  currentElementId: string;
+  setCurrentElementId: (id: string) => void
+  updateComponent: (key: string, value: any, isRoot?: boolean) => void
 }
-const LayerList: React.FC<Iprops> = ({props}) => {
+const LayerList: React.FC<Iprops> = ({ props, currentElementId, setCurrentElementId, updateComponent }) => {
   const [componentData, setComponentData] = useRecoilState(componentDataAtom);
-  const [currentElementId, setElementId] = useRecoilState(currentElementAtom);
 
   if (currentElementId) {
-    const isLocked = props.isLocked;
-    const isHidden = props.isHidden;
     const changeLayerHidden = (item: IComponentData) => {
       let newData = [...componentData];
       newData = newData.map((data) => {
         if (data.id === item.id) {
-          const {isHidden, ...otherData} = data;
+          const { isHidden, ...otherData } = data;
           data = {
             isHidden: !isHidden,
             ...otherData,
@@ -47,7 +48,7 @@ const LayerList: React.FC<Iprops> = ({props}) => {
       newData = newData.map((data) => {
         if (data.id === item.id) {
           // data.
-          const {isLocked, ...otherData} = data;
+          const { isLocked, ...otherData } = data;
           data = {
             isLocked: !isLocked,
             ...otherData,
@@ -58,18 +59,15 @@ const LayerList: React.FC<Iprops> = ({props}) => {
       setComponentData(newData);
     };
     // 设置选中项
-    const selectItem = (
-      e: MouseEvent<HTMLDivElement>,
-      item: IComponentData,
-    ) => {
+    const selectItem = (e: MouseEvent<HTMLDivElement>, item: IComponentData) => {
       e.preventDefault();
-      setElementId(item.id);
+      setCurrentElementId(item.id);
     };
 
-    const onDragUpdate = (result: DropResult) => {};
+    const onDragUpdate = (result: DropResult) => { };
     const onDragEnd = (result: DropResult) => {
       // console.log(result)
-      const {source, destination} = result;
+      const { source, destination } = result;
       if (!destination) return;
       let arr: IComponentData[] = [...componentData];
       // arr[0].
@@ -77,6 +75,13 @@ const LayerList: React.FC<Iprops> = ({props}) => {
       arr.splice(destination.index, 0, remove);
       setComponentData(arr);
     };
+
+    // 修改 layname
+    const handleChange = (value) => {
+      console.log(value);
+      updateComponent && updateComponent("layerName", value, true)
+    }
+
     return (
       <div>
         {
@@ -94,26 +99,27 @@ const LayerList: React.FC<Iprops> = ({props}) => {
                         draggableId={item.id}
                         index={index}
                       >
-                        {(p, s) => (
+                        {(p) => (
                           <div
                             className={styles['layer-cell']}
                             ref={p.innerRef}
                             {...p.draggableProps}
                             {...p.dragHandleProps}
+                            style={{ border: currentElementId === item.id ? "1px solid #1890ff" : '' }}
                             onClick={(events: MouseEvent<HTMLDivElement>) =>
                               selectItem(events, item)
                             }
                           >
-                            {/* // 是否可见 */}
+                            {/* 是否可见 */}
                             <span
                               onClick={() => changeLayerHidden(item)}
                               className={styles['hidden-text']}
                             >
                               <Tooltip title={item.isHidden ? '显示' : '隐藏'}>
                                 {!item.isHidden ? (
-                                  <EyeOutlined />
+                                  <EyeOutlined className={styles.icon} />
                                 ) : (
-                                  <EyeInvisibleOutlined />
+                                  <EyeInvisibleOutlined className={styles.icon} />
                                 )}
                               </Tooltip>
                             </span>
@@ -125,15 +131,16 @@ const LayerList: React.FC<Iprops> = ({props}) => {
                             >
                               <Tooltip title={item.isLocked ? '解锁' : '锁定'}>
                                 {!item.isLocked ? (
-                                  <UnlockOutlined />
+                                  <UnlockOutlined className={styles.icon} />
                                 ) : (
-                                  <LockOutlined />
+                                  <LockOutlined className={styles.icon} />
                                 )}
                               </Tooltip>
                             </span>
-                            <span>{item.layerName}</span>
+                            <LnlineEdit value={item.layerName} onChange={handleChange} />
                           </div>
-                        )}
+                        )
+                        }
                       </Draggable>
                     );
                   })}
@@ -142,7 +149,7 @@ const LayerList: React.FC<Iprops> = ({props}) => {
             </Droppable>
           </DragDropContext>
         }
-      </div>
+      </div >
     );
   }
   return (
