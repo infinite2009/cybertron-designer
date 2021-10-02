@@ -64,6 +64,32 @@ export interface TextComponentProps extends CommonComponentProps {
   left: string;
   top: string
 }
+
+export interface ButtonComponentProps {
+  block: boolean;
+  danger: boolean;
+  disabled: boolean;
+  ghost: boolean;
+  // href
+  // htmlType
+  // icon
+  loading: boolean;
+  shape: 'circle' | 'round';
+  size: 'large' | 'middle' | 'small',
+  type: 'primary' | 'ghost' | 'dashed' | 'link' | 'text' | 'default'
+}
+
+export const ButtonDefaultProps: ButtonComponentProps = {
+  block: false,
+  danger: false,
+  disabled: false,
+  ghost: false,
+  loading: false,
+  shape: 'round',
+  size: 'large',
+  type: 'primary'
+}
+
 export const textDefaultProps: TextComponentProps = {
   // basic props - font styles
   ...commonDefaultProps,

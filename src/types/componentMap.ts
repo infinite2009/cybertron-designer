@@ -5,6 +5,7 @@ import ContainerWidget from '@/components/widgets/container';
 import ImageWidget from '@/components/widgets/image';
 import ListWidget from '@/components/widgets/list';
 
+
 type IComponentType = {
     name: string;
     component: Reat.ReactNode;
@@ -31,5 +32,9 @@ const componentMap: IComponentToFrom = {
         name: '列表组件',
         component: ListWidget,
     },
+    'button': {
+        name: '按钮组件',
+        component: Button,
+    }
 };
 export default componentMap;

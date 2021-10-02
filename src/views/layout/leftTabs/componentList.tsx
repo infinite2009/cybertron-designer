@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { ITemplateProps } from '@/types/componentList';
 import { useRecoilState } from 'recoil';
 import { componentDataAtom, historyAtom, HistoryProps } from '@/store/atorms/global';
-import { textDefaultProps} from "@/types/defaultProps"
+import { textDefaultProps, ButtonDefaultProps} from "@/types/defaultProps"
 import { v4 as uuidv4 } from 'uuid';
 import { cloneDeep } from 'lodash-es'
 import styles from './index.less';
@@ -14,15 +14,18 @@ const ComponentList: FC<IProps> = (props) => {
   const [componentData, setComponentData] = useRecoilState(componentDataAtom);
   const [historyList, setHistory] = useRecoilState(historyAtom)
   const addComponentData = (item: ITemplateProps) => {
-    const styles = item.props;
+
     let newcomponentData = [...componentData];
+    // console.log('item.type', item.type)
+    const componentProps = item.type === 'button' ? ButtonDefaultProps : textDefaultProps
+    console.log('componentProps', componentProps)
     const newItem: ITemplateProps = {
       id: uuidv4(),
       name: item.name,
       type: item.type,
       layerName: `图层${newcomponentData.length+1}`,
       props: {
-        ...textDefaultProps
+        ...componentProps
       },
     };
     newcomponentData.push(newItem);

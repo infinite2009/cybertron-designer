@@ -4,7 +4,7 @@ import React from 'react'
 const TextWidget = (props) => {
     const { text, ...restProps } = props
     return (
-        <p>
+        <p style={{...restProps}}>
             {text}
         </p>
     )

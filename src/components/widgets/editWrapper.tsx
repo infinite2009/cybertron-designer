@@ -20,8 +20,8 @@ interface OriginalPositions {
 export interface IProps {
   updatePosition?: Function;
   id: string;
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
 }
 const EditWrapper: React.FC<IProps> = (props) => {
   let [currentElement, setElementId] = useRecoilState(currentElementAtom);

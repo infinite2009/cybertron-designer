@@ -44,7 +44,6 @@ const Index: React.FC = (props) => {
                     }
                 }
                 // alert(2)
-                console.log(componet)
                 setHistory([...historyList, {
                     type: 'modify',
                     id: uuidv4(),
@@ -131,7 +130,7 @@ const Index: React.FC = (props) => {
                 const Component = componentMap[item.type].component as unknown as any
                 return (
                     !item.isHidden ?
-                    <EditWrapper key={item.id} id={item.id} width={item.props.width || '100px'} height={item.props.height || '100px'} updatePosition={updatePosition} >
+                    <EditWrapper key={item.id} id={item.id} width={item.props.width} height={item.props.height} updatePosition={updatePosition} >
                         {/* 到时候需要根据数据循环递归去遍历 */}
                         {/* {createElement(
                                 item.type,

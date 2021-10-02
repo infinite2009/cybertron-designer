@@ -1,10 +1,5 @@
-import {ImageComponentProps, TextComponentProps} from '@/types/defaultProps';
-/** 左边的组件 */
-export interface IComponentList {
-  type: number;
-  typeName: string;
-  list: ITemplateProps[];
-}
+import {ImageComponentProps, TextComponentProps, ButtonComponentProps} from '@/types/defaultProps';
+
 
 /** 具体每个组件的信息 */
 export interface ITemplateProps {
@@ -18,6 +13,13 @@ export interface ITemplateProps {
   isHidden?: boolean;
   // 是否可以进行编辑
   isLocked?: boolean;
-  props: Partial<TextComponentProps & ImageComponentProps>;
+  props: Partial<TextComponentProps & ImageComponentProps & ButtonComponentProps>;
   /** 后续把全部属性接入、每个组件有那些属性一一映射 **/
+}
+
+/** 左边的组件 */
+export interface IComponentList {
+  type: number;
+  typeName: string;
+  list: ITemplateProps[];
 }

@@ -80,7 +80,26 @@ const mockComponentList: Array<IComponentList> = [
   {
     type: 3,
     typeName: '第三方',
-    list: [],
+    list: [
+      {
+        id: uuidv4(),
+        name: '按钮组件',
+        type: 'button',
+        props: {
+          block: false,
+          danger: false,
+          disabled: false,
+          ghost: false,
+          // href
+          // htmlType
+          // icon
+          loading: false,
+          shape: 'round',
+          size: 'large',
+          type: 'primary'
+        }
+      }
+    ],
   },
 ];
 

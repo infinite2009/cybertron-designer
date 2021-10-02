@@ -26,7 +26,6 @@ const Index: React.FC<IProps> = (props) => {
       }
 
       let newData = [...componentData];
-      // console.log(newData)
       // TODO 后续抽离出去、可能还需要递归去找、现在先默认就是一层
       newData = newData.map((data) => {
         if (data.id === currentElementId) {
@@ -37,6 +36,7 @@ const Index: React.FC<IProps> = (props) => {
               [key]: value,
             },
           };
+          console.log(newData)
           // alert(1)
           setHistory([...historyList, {
             type: 'modify',
