@@ -155,7 +155,7 @@ const Index: React.FC<IProps> = (props) => {
                         // >
                         //     {<Component tag={item.tag} {...item.props} />}
                         // </EditWrapper>
-                    ): null;
+                    ): null
                 })}
             </div>
         </div>

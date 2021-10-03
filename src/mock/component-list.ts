@@ -1,71 +1,45 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IComponentList } from '@/types/componentList';
-import { commonDefaultProps, textDefaultProps } from '@/types/defaultProps';
+import { IComponentData } from '@/store/context';
+import { commonDefaultProps, imageDefaultProps, textDefaultProps } from '@/types/defaultProps';
 
-const mockComponentList: Array<IComponentList> = [
+const mockComponentList: Array<IComponentData> = [
   {
-    type: 1,
-    typeName: '通用',
-    list: [
-      {
-        id: uuidv4(),
-        name: '容器',
-        type: 'container-widget', // ContainerWidget ro container-widget
-        icon: 'BuildOutlined',
-        props: {
-          ...commonDefaultProps,
-        },
-      },
-      {
-        id: uuidv4(),
-        name: '文本',
-        type: 'text-widget',
-        icon: 'BuildOutlined',
-        props: {
-          ...textDefaultProps,
-        },
-      },
-      {
-        id: uuidv4(),
-        name: '按钮',
-        type: 'text-widget',
-        icon: 'BuildOutlined',
-        props: {
-          ...textDefaultProps,
-          tag: "button",
-        },
-      },
-      {
-        id: uuidv4(),
-        name: '图片',
-        type: 'image-widget',
-        icon: 'BuildOutlined',
-        props: {
-
-        }
-      },
-      {
-        id: uuidv4(),
-        name: '列表',
-        type: 'list-widget',
-        icon: 'BuildOutlined',
-        props: {}
-      },
-    ],
+    id: uuidv4(),
+    name: '容器',
+    type: 'container-widget', // ContainerWidget ro container-widget
+    icon: 'BuildOutlined',
+    props: {
+      ...commonDefaultProps,
+    },
   },
   {
-    type: 2,
-    typeName: '自定义',
-    list: [
-      {
-        id: uuidv4(),
-        name: '列表',
-        type: 'list',
-        icon: 'BuildOutlined',
-        props: {}
-      },
-    ],
+    id: uuidv4(),
+    name: '文本',
+    type: 'text-widget',
+    icon: 'BuildOutlined',
+    props: {
+      ...textDefaultProps,
+    },
   },
+  {
+    id: uuidv4(),
+    name: '按钮',
+    type: 'text-widget',
+    icon: 'BuildOutlined',
+    props: {
+      ...textDefaultProps,
+      tag: "button",
+    },
+  },
+  {
+    id: uuidv4(),
+    name: '图片',
+    type: 'image-widget',
+    icon: 'BuildOutlined',
+    props: {
+      ...imageDefaultProps
+    }
+  }
 ];
 
 export default mockComponentList;

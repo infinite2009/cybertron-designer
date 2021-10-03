@@ -34,6 +34,8 @@ export interface IComponentData {
     id: string;
     /** 和mock里面的类型对应 也就是 React.createElement<tag> */
     type: string;
+    /** 图标*/
+    icon?: string;
     /** 组件名 */
     name: string;
     /** 标签名 可能一个组件有N种不同类型的组件 */

@@ -39,8 +39,6 @@ export interface IProps {
     currentElement?: string
 }
 const EditGroup: FC<IProps> = (props) => {
-    console.log(props.props);
-
     if (props.props) {
         const propMap = props.props
         const allNormalProps = defaultEditGroups.reduce((prev, current) => {

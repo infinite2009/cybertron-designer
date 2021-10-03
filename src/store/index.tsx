@@ -1,16 +1,18 @@
 import React, { useReducer, ReactNode } from "react"
 import { AppContext, IEditorProps } from './context'
-import { getComponentData } from '@/util/store'
+import { getComponentState } from '@/util/store'
 import { IComponentData } from "./context"
 import * as actionTypes from './contant'
 
 const pageDefaultProps = { backgroundColor: 'red', backgroundImage: '', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '560px' }
 
+const cacheData: IEditorProps = getComponentState()
+
 const initState: IEditorProps = {
-    components: getComponentData(),
+    components: cacheData.components || [],
     currentElement: '',
     page: {
-        props: pageDefaultProps,
+        props: cacheData.page?.props || pageDefaultProps,
         title: 'test title'
     },
     historyIndex: -1,
@@ -22,7 +24,7 @@ const initState: IEditorProps = {
 export type ActionType = {
     type: string;
     data: {
-        key: string,
+        key?: string,
         value: any,
         isRoot?: boolean
     }
@@ -37,6 +39,14 @@ const reducer = (state: IEditorProps, action: ActionType) => {
             return {
                 ...state,
                 currentElement: value
+            }
+        case actionTypes.ADDCOMPONENT:
+            let components = [...state.components];
+            (value as IComponentData).layerName = `图层${state.components.length + 1}`
+            components = components.concat(value)
+            return {
+                ...state,
+                components
             }
         case actionTypes.UPDATEPAGE:
             return {

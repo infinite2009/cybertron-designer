@@ -1,17 +1,17 @@
 import React, { useCallback, useContext } from 'react'
 import { Layout, Tabs, Empty } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 import HeaderBase from './header'
-import LeftTabs from './leftTabs'
-// import Main from './canvas'
 import EditGroup from './setting-area/edit'
 import LayerList from './setting-area/layer'
 import PropsTable from '@/components/propsTable'
 import { IComponentData } from '@/store/context';
 import componentMap from '@/types/componentMap';
 import EditWrapper from '@/components/editWrapper';
-
-import { SETACTIVE, UPDATECOMPONENT, UPDATEPAGE } from '@/store/contant'
+import { SETACTIVE, ADDCOMPONENT, UPDATECOMPONENT, UPDATEPAGE } from '@/store/contant'
 import { AppContext, IContextProps } from '@/store/context'
+import mockComponentList from "@/mock/component-list"
+
 import styles from './index.less';
 
 import './index.less'
@@ -21,9 +21,10 @@ const { TabPane } = Tabs;
 
 const BaseLayout: React.FC = () => {
     const { state, dispatch } = useContext<IContextProps>(AppContext)
-
     const { currentElement, components, page } = state
-    const currentComponentData: IComponentData = components.filter((data: IComponentData) => data.id === currentElement)[0]
+
+    let filterComponents: IComponentData[] = components.filter((data: IComponentData) => data.id === currentElement) || []
+    const currentComponentData: IComponentData = filterComponents.length ? filterComponents[0] : {} as IComponentData
 
     const isLocked = currentComponentData?.isLocked;
     const isHidden = currentComponentData?.isHidden;
@@ -38,6 +39,24 @@ const BaseLayout: React.FC = () => {
         })
     }, [currentElement, components])
 
+    const addComponent = useCallback((item: IComponentData) => {
+        console.log(item);
+        const component: IComponentData = {
+            id: uuidv4(),
+            props: {
+                ...item.props
+            },
+            type: item.type,
+            name: item.name
+        }
+        dispatch({
+            type: ADDCOMPONENT,
+            data: {
+                value: component
+            }
+        })
+    }, [])
+
     // 修改统一操作
     const updateComponent = useCallback((key: string, value: any, isRoot = false) => {
         dispatch({
@@ -49,6 +68,13 @@ const BaseLayout: React.FC = () => {
             }
         })
     }, [currentComponentData, currentElement]);
+
+    const updatePosition = useCallback((data: { left: number; top: number; width: number; height: number }) => {
+        data.left && updateComponent("left", data.left)
+        data.top && updateComponent("top", data.top)
+        data.width && updateComponent("width", data.width)
+        data.height && updateComponent("height", data.height)
+    }, [])
 
     const updatePage = useCallback((key: string, value: any) => {
         dispatch({
@@ -64,12 +90,22 @@ const BaseLayout: React.FC = () => {
         <Layout>
             <Header className={styles.header}>
                 <div className="logo" />
-                <HeaderBase components={components} />
+                <HeaderBase data={state} />
             </Header>
             <Content style={{ padding: '0 50px', height: 'calc(100vh - 64px - 70px)' }}>
                 <Layout className="site-layout-background" style={{ padding: '24px 0', height: '100%' }}>
-                    <Sider theme="light" width={400}>
-                        <LeftTabs />
+                    <Sider theme="light" width={400} className={styles.componentList}>
+                        {mockComponentList.map((item: IComponentData) => {
+                            return (
+                                <div
+                                    key={item.id}
+                                    className={styles.name}
+                                    onClick={() => addComponent(item)}
+                                >
+                                    {item.name}
+                                </div>
+                            );
+                        })}
                     </Sider>
                     <Content style={{ display: 'flex', justifyContent: 'center', minHeight: 280 }}>
                         <div className={styles.content}>
@@ -85,11 +121,10 @@ const BaseLayout: React.FC = () => {
                                         <EditWrapper
                                             key={item.id}
                                             id={item.id}
-                                            currentElement={currentElement}
-                                            width={item.props.width || '100px'}
-                                            height={item.props.height || '100px'}
+                                            active={item.id === currentElement}
+                                            props={item.props}
                                             setActive={setActive}
-                                        // updatePosition={updateComponent}
+                                            updatePosition={updatePosition}
                                         >
                                             {<Component tag={item.tag} {...item.props} />}
                                         </EditWrapper>

@@ -1,13 +1,13 @@
 
-import { IComponentData } from "@/types/componentData"
+import { IEditorProps } from "@/store/context"
 export const prefix = "coderX"
 
-export function saveComponentData(componentData: IComponentData[]) {
-    window.localStorage.setItem(`${prefix}-componentData`, JSON.stringify(componentData))
+export function saveComponentState(componentData: IEditorProps) {
+    window.localStorage.setItem(`${prefix}-componentState`, JSON.stringify(componentData))
 }
 
-export function getComponentData(): IComponentData[] {
-    const data = window.localStorage.getItem(`${prefix}-componentData`);
-    const componentData: IComponentData[] = JSON.parse(data) || []
+export function getComponentState(): IEditorProps {
+    const data = window.localStorage.getItem(`${prefix}-componentState`);
+    const componentData: IEditorProps = JSON.parse(data) || []
     return componentData;
 }
