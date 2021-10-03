@@ -10,9 +10,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { Button, Modal } from 'antd'
 import styles from './uploader.less';
-import { useRecoilState } from 'recoil';
 import Cropper from 'cropperjs'
-import { pageBackgroundAtom } from '@/store/atorms/global'
 
 type UploadStaus = 'ready' | 'loading' | 'success' | 'error';
 type FileListType = 'picture' | 'text';
@@ -52,7 +50,6 @@ interface CropDataProps {
 const Uploader: React.FC<IProps> = (props) => {
   console.log(props);
 
-  const [pageBackground, setPageBackground] = useRecoilState(pageBackgroundAtom)
   // let [imageBase64, setImageBase64] = useState<string | ArrayBuffer>('')
   let [status, setStatus] = useState<UploadStaus>('ready');
   let [isDragOver, setIsDragOver] = useState<boolean>(false);
@@ -136,7 +133,7 @@ const Uploader: React.FC<IProps> = (props) => {
           readyFile.resp = data;
           // setRespArr([data, ...respArr]);
           setResultImg(readyFile.url)
-          setPageBackground(`url(${readyFile.url}) no-repeat center / 100% 100%`)
+          // setPageBackground(`url(${readyFile.url}) no-repeat center / 100% 100%`)
           props.success({ resp: data, file: readyFile, list: fileList });
         } else {
           readyFile.status = 'error';
@@ -197,7 +194,7 @@ const Uploader: React.FC<IProps> = (props) => {
       // console.log(cropData)
       let res = cropper.getCroppedCanvas({ imageSmoothingQuality: 'high' }).toDataURL('image/jpeg')
       setResultImg(res)
-      setPageBackground(`url(${res}) no-repeat center / 100% 100%`)
+      // setPageBackground(`url(${res}) no-repeat center / 100% 100%`)
       cropper.destroy()
     }
   }
@@ -211,7 +208,7 @@ const Uploader: React.FC<IProps> = (props) => {
 
   const handleDelete = (e: MouseEvent) => {
     setResultImg('')
-    setPageBackground('')
+    // setPageBackground('')
     fileList.splice(fileList.length - 1, 1)
   }
 

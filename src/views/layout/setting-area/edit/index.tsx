@@ -1,14 +1,14 @@
 import React, { FC, memo } from "react"
 import { Collapse, Empty } from 'antd';
-import { TextComponentProps } from "@/types/defaultProps"
+import { AllComponentProps } from "@/types/defaultProps"
 import { difference } from "lodash-es"
-import PropsTable from './propsTable'
+import PropsTable from '@/components/propsTable'
 const { Panel } = Collapse;
 
 export interface GroupProps {
     text: string;
     items: string[];
-    props?: TextComponentProps
+    props?: AllComponentProps
 }
 
 const defaultEditGroups: GroupProps[] = [
@@ -36,9 +36,11 @@ const defaultEditGroups: GroupProps[] = [
 export interface IProps {
     props: any;
     updateComponent: (key: string, value: any) => void;
-    currentElement: string
+    currentElement?: string
 }
 const EditGroup: FC<IProps> = (props) => {
+    console.log(props.props);
+
     if (props.props) {
         const propMap = props.props
         const allNormalProps = defaultEditGroups.reduce((prev, current) => {
@@ -56,7 +58,7 @@ const EditGroup: FC<IProps> = (props) => {
         const editGroups = newGroups.map((group: GroupProps) => {
             const propsMap = {}
             group.items.forEach(item => {
-                const key = item as keyof TextComponentProps
+                const key = item as keyof AllComponentProps
                 propsMap[key] = propMap[key]
             })
             return {
@@ -70,7 +72,7 @@ const EditGroup: FC<IProps> = (props) => {
                 {editGroups.map((item => {
                     return (
                         <Panel header={item.text} key={item.text}>
-                            <PropsTable currentElement={props.currentElement} props={item.props} updateComponent={props.updateComponent} />
+                            <PropsTable props={item.props} onChange={props.updateComponent} />
                         </Panel>
                     )
                 }))}

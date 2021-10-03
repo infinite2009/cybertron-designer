@@ -1,10 +1,10 @@
 import React, { useReducer, ReactNode } from "react"
 import { AppContext, IEditorProps } from './context'
 import { getComponentData } from '@/util/store'
-import { IComponentData } from "@/types/componentData"
+import { IComponentData } from "./context"
 import * as actionTypes from './contant'
 
-const pageDefaultProps = { backgroundColor: '#ffffff', backgroundImage: '', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '560px' }
+const pageDefaultProps = { backgroundColor: 'red', backgroundImage: '', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '560px' }
 
 const initState: IEditorProps = {
     components: getComponentData(),
@@ -37,6 +37,17 @@ const reducer = (state: IEditorProps, action: ActionType) => {
             return {
                 ...state,
                 currentElement: value
+            }
+        case actionTypes.UPDATEPAGE:
+            return {
+                ...state,
+                page: {
+                    ...state.page,
+                    props: {
+                        ...state.page.props,
+                        [key]: value
+                    }
+                }
             }
         case actionTypes.UPDATECOMPONENT:
             let newData = [...state.components];

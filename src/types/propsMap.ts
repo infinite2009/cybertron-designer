@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
-import { Input, InputNumber, Slider, Select, Radio } from 'antd';
+import { Input, InputNumber, Slider, Select, Radio, Button } from 'antd';
 import Upload from '@/components/widgets/uploader'
 import SketchPicker from '@/components/widgets/colorPicker';
-import { TextComponentProps, ImageComponentProps } from './defaultProps';
+import BackgroundProcesser from '@/components/backgroundProcesser'
 import fontFamilyOptions from '../components/widgets/fontFamilyOptions';
+import { AllFormProps } from '@/store/context';
 
 const TextArea = Input.TextArea;
 const Group = Radio.Group;
@@ -36,10 +37,8 @@ export interface FormProps {
     events?: { [key: string]: (e: any) => void };
 }
 
-export type AllComponentProps = TextComponentProps & ImageComponentProps;
-
 export type PropsToForms = {
-    [P in keyof AllComponentProps]?: PropToForm;
+    [P in keyof AllFormProps]?: PropToForm;
 };
 
 const pxToNumberHandler: PropToForm = {
@@ -175,5 +174,24 @@ export const mapPropsToForms: PropsToForms = {
     src: {
         component: Upload,
         valueProp: "src"
+    },
+    backgroundImage: {
+        text: "背景图片",
+        component: BackgroundProcesser,
+        initalTransform: (v: string) => {
+            if (v) {
+                const reg = /\(["'](.+)["']\)/g
+                const matches = reg.exec(v)
+                if (matches && matches.length > 1) {
+                    console.log(matches)
+                    return matches[1]
+                } else {
+                    return ''
+                }
+            } else {
+                return ''
+            }
+        },
+        afterTransform: (e: string) => e ? `url('${e}')` : ''
     }
 };

@@ -5,12 +5,12 @@ import LeftTabs from './leftTabs'
 // import Main from './canvas'
 import EditGroup from './setting-area/edit'
 import LayerList from './setting-area/layer'
-import PageSetting from './setting-area/page-setting'
-import { IComponentData } from '@/types/componentData';
+import PropsTable from '@/components/propsTable'
+import { IComponentData } from '@/store/context';
 import componentMap from '@/types/componentMap';
 import EditWrapper from '@/components/editWrapper';
 
-import { SETACTIVE, UPDATECOMPONENT } from '@/store/contant'
+import { SETACTIVE, UPDATECOMPONENT, UPDATEPAGE } from '@/store/contant'
 import { AppContext, IContextProps } from '@/store/context'
 import styles from './index.less';
 
@@ -49,6 +49,16 @@ const BaseLayout: React.FC = () => {
             }
         })
     }, [currentComponentData, currentElement]);
+
+    const updatePage = useCallback((key: string, value: any) => {
+        dispatch({
+            type: UPDATEPAGE,
+            data: {
+                key,
+                value
+            }
+        })
+    }, [page])
 
     return (
         <Layout>
@@ -100,7 +110,7 @@ const BaseLayout: React.FC = () => {
                                     updateComponent={updateComponent} />
                             </TabPane>
                             <TabPane tab="页面设置" key="pageSetting">
-                                <PageSetting />
+                                <PropsTable onChange={updatePage} props={page.props} />
                             </TabPane>
                             <TabPane tab="数据源" key="dataSource">
                                 Content of Tab Pane 2

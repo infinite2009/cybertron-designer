@@ -1,6 +1,5 @@
 import React, { ComponentClass, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import EditorContext from '@/store/index'
 import { routeConfig } from '@/router';
 
@@ -20,18 +19,16 @@ const App = (): React.ReactElement => {
     );
   });
   return (
-    <RecoilRoot>
-      <EditorContext>
-        <Router>
-          <Switch>
-            {routerTpl}
-          </Switch>
-        </Router>
-        {/* <Suspense fallback={'loading...'}>
+    <EditorContext>
+      <Router>
+        <Switch>
+          {routerTpl}
+        </Switch>
+      </Router>
+      {/* <Suspense fallback={'loading...'}>
         <LazyStrawberryIcon className={styles.stylesImage} />
       </Suspense> */}
-      </EditorContext>
-    </RecoilRoot>
+    </EditorContext>
   )
 };
 

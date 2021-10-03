@@ -1,15 +1,10 @@
 import React, { useEffect, useRef, useState, useContext, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { IComponentData } from '@/types/componentData';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import {
-    pageBackgroundAtom,
-    historyAtom,
-} from '@/store/atorms/global';
+
 import EditWrapper from '@/components/editWrapper';
 import componentMap from '@/types/componentMap';
 import styles from './index.less';
-import { initUseKeys } from '@/plugins/useKeys';
+// import { initUseKeys } from '@/plugins/useKeys';
 // import useKeys from '@/hooks/useKeys'
 import { AppContext, IContextProps } from '@/store/context'
 import { getParentElement } from '@/util';
@@ -31,8 +26,7 @@ const Index: React.FC<IProps> = (props) => {
 
     initUseKeys();
     const { components } = state
-    const backgroundColor = useRecoilValue(pageBackgroundAtom);
-    const [historyList, setHistory] = useRecoilState(historyAtom);
+
     const menuContainer = useRef(null);
     let [activeCurrentElement, setActiveCurrentElement] = useState(null);
     // const updatePosition = (data: any) => {
@@ -145,23 +139,23 @@ const Index: React.FC<IProps> = (props) => {
             {activeCurrentElement ? contextmenuList() : null}
             <div
                 className={styles['canvas-area']}
-                style={{ background: backgroundColor }}
+                // style={{ background: backgroundColor }}
                 id="canvas-area"
             >
                 {components.map((item: IComponentData) => {
                     const Component = componentMap[item.type].component as unknown as any;
                     return !item.isHidden ? (
-                        <EditWrapper
-                            key={item.id}
-                            id={item.id}
-                            width={item.props.width || '100px'}
-                            height={item.props.height || '100px'}
-                            setActive={props.setActive}
-                        // updatePosition={updatePosition}
-                        >
-                            {<Component tag={item.tag} {...item.props} />}
-                        </EditWrapper>
-                    ) : null;
+                        // <EditWrapper
+                        //     key={item.id}
+                        //     id={item.id}
+                        //     width={item.props.width || '100px'}
+                        //     height={item.props.height || '100px'}
+                        //     setActive={props.setActive}
+                        // // updatePosition={updatePosition}
+                        // >
+                        //     {<Component tag={item.tag} {...item.props} />}
+                        // </EditWrapper>
+                    ): null;
                 })}
             </div>
         </div>
