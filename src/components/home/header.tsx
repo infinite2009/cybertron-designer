@@ -27,7 +27,6 @@ const HomeHeader: React.FC = () => {
 
     return (
         <div className={style.header}>
-
             <div className={style.text}>
                 <h2 className={style.headline}>海量精彩设计 一键生成</h2>
                 <div className={style.search}>

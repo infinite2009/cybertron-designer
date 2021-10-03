@@ -1,71 +1,74 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { IComponentData } from '@/types/componentData';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import {
-    componentDataAtom,
     pageBackgroundAtom,
     historyAtom,
 } from '@/store/atorms/global';
-import EditWrapper from '@/components/widgets/editWrapper';
+import EditWrapper from '@/components/editWrapper';
 import componentMap from '@/types/componentMap';
 import styles from './index.less';
 import { initUseKeys } from '@/plugins/useKeys';
 // import useKeys from '@/hooks/useKeys'
+import { AppContext, IContextProps } from '@/store/context'
 import { getParentElement } from '@/util';
-import { cloneDeep } from 'lodash-es';
 type actionType = 'add' | 'remove' | 'cancel';
 
 export interface ContextmenuList {
     name: string;
     type: actionType;
 }
+
+interface IProps {
+    setActive: (id: string) => void
+}
+
 // TODO
 // 待实现外层 div 拖动、点击选中、右键操作、nodeType 为文本选中出现 tool-bar
-const Index: React.FC = (props) => {
+const Index: React.FC<IProps> = (props) => {
+    const { state, dispatch } = useContext<IContextProps>(AppContext)
+
     initUseKeys();
-    // console.log(process.env.DB_HOST)
-    // const componentData:  = useRecoilValue(componentDataAtom);
-    const [componentData, setComponentData] =
-        useRecoilState<IComponentData[]>(componentDataAtom);
+    const { components } = state
     const backgroundColor = useRecoilValue(pageBackgroundAtom);
     const [historyList, setHistory] = useRecoilState(historyAtom);
     const menuContainer = useRef(null);
     let [activeCurrentElement, setActiveCurrentElement] = useState(null);
-    const updatePosition = (data: any) => {
-        const { id, width, height, left, top } = data;
-        let newData = [...componentData];
-        newData = newData.map((componet) => {
-            if (componet.id === id) {
-                const newComponet = {
-                    ...componet,
-                    props: {
-                        ...componet.props,
-                        width: width + 'px',
-                        height: height + 'px',
-                        left: left + 'px',
-                        top: top + 'px',
-                    },
-                };
-                // alert(2)
-                console.log(componet);
-                setHistory([
-                    ...historyList,
-                    {
-                        type: 'modify',
-                        id: uuidv4(),
-                        componentId: componet.id,
-                        data: {
-                            oldValue: cloneDeep(componet),
-                        },
-                    },
-                ]);
-                return newComponet;
-            }
-            return componet;
-        });
-        setComponentData(newData);
-    };
+    // const updatePosition = (data: any) => {
+    //     const { id, width, height, left, top } = data;
+    //     let newData = [...componentData];
+    //     newData = newData.map((componet) => {
+    //         if (componet.id === id) {
+    //             const newComponet = {
+    //                 ...componet,
+    //                 props: {
+    //                     ...componet.props,
+    //                     width: width + 'px',
+    //                     height: height + 'px',
+    //                     left: left + 'px',
+    //                     top: top + 'px',
+    //                 },
+    //             };
+    //             // alert(2)
+    //             console.log(componet);
+    //             setHistory([
+    //                 ...historyList,
+    //                 {
+    //                     type: 'modify',
+    //                     id: uuidv4(),
+    //                     componentId: componet.id,
+    //                     data: {
+    //                         oldValue: cloneDeep(componet),
+    //                     },
+    //                 },
+    //             ]);
+    //             return newComponet;
+    //         }
+    //         return componet;
+    //     });
+    //     // setComponentData(newData);
+    // };
 
     const handleContext = (e: MouseEvent) => {
         e.preventDefault();
@@ -145,7 +148,7 @@ const Index: React.FC = (props) => {
                 style={{ background: backgroundColor }}
                 id="canvas-area"
             >
-                {componentData.map((item: IComponentData) => {
+                {components.map((item: IComponentData) => {
                     const Component = componentMap[item.type].component as unknown as any;
                     return !item.isHidden ? (
                         <EditWrapper
@@ -153,7 +156,8 @@ const Index: React.FC = (props) => {
                             id={item.id}
                             width={item.props.width || '100px'}
                             height={item.props.height || '100px'}
-                            updatePosition={updatePosition}
+                            setActive={props.setActive}
+                        // updatePosition={updatePosition}
                         >
                             {<Component tag={item.tag} {...item.props} />}
                         </EditWrapper>

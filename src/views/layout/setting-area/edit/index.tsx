@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, memo } from "react"
 import { Collapse, Empty } from 'antd';
 import { TextComponentProps } from "@/types/defaultProps"
 import { difference } from "lodash-es"
@@ -35,6 +35,8 @@ const defaultEditGroups: GroupProps[] = [
 ]
 export interface IProps {
     props: any;
+    updateComponent: (key: string, value: any) => void;
+    currentElement: string
 }
 const EditGroup: FC<IProps> = (props) => {
     if (props.props) {
@@ -68,7 +70,7 @@ const EditGroup: FC<IProps> = (props) => {
                 {editGroups.map((item => {
                     return (
                         <Panel header={item.text} key={item.text}>
-                            <PropsTable props={item.props} />
+                            <PropsTable currentElement={props.currentElement} props={item.props} updateComponent={props.updateComponent} />
                         </Panel>
                     )
                 }))}
@@ -77,4 +79,4 @@ const EditGroup: FC<IProps> = (props) => {
     }
     return <Empty description="请选中组件" />
 }
-export default EditGroup
+export default memo(EditGroup)

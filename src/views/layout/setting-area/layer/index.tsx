@@ -1,5 +1,4 @@
-import React, { MouseEvent } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { MouseEvent, useContext } from 'react';
 import { Tooltip, Empty } from 'antd';
 import {
   EyeOutlined,
@@ -9,78 +8,49 @@ import {
 } from '@ant-design/icons';
 import LnlineEdit from '@/components/lnlineEdit'
 import { IComponentData } from '@/types/componentData';
-import { componentDataAtom } from '@/store/atorms/global';
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from 'react-beautiful-dnd';
+import { AppContext, IContextProps } from '@/store/context'
+
 import styles from './index.less';
 
 export interface Iprops {
-  props: IComponentData;
-  currentElementId: string;
-  setCurrentElementId: (id: string) => void
+  setActive: (id: string) => void
   updateComponent: (key: string, value: any, isRoot?: boolean) => void
 }
-const LayerList: React.FC<Iprops> = ({ props, currentElementId, setCurrentElementId, updateComponent }) => {
-  const [componentData, setComponentData] = useRecoilState(componentDataAtom);
+const LayerList: React.FC<Iprops> = ({ setActive, updateComponent }) => {
 
-  if (currentElementId) {
-    const changeLayerHidden = (item: IComponentData) => {
-      let newData = [...componentData];
-      newData = newData.map((data) => {
-        if (data.id === item.id) {
-          const { isHidden, ...otherData } = data;
-          data = {
-            isHidden: !isHidden,
-            ...otherData,
-          };
-        }
-        return data;
-      });
-      setComponentData(newData);
+  const { state } = useContext<IContextProps>(AppContext)
+  const { currentElement, components } = state
+
+  if (currentElement) {
+    // 锁定、隐藏、修改图层名称统一操作
+    const handleChange = (key: string, value: any, isRoot: boolean) => {
+      updateComponent(key, value, isRoot)
     };
-    // 是否锁定使其不可编辑
-    const changeLayerLock = (item: IComponentData) => {
-      let newData = [...componentData];
-      newData = newData.map((data) => {
-        if (data.id === item.id) {
-          // data.
-          const { isLocked, ...otherData } = data;
-          data = {
-            isLocked: !isLocked,
-            ...otherData,
-          };
-        }
-        return data;
-      });
-      setComponentData(newData);
-    };
+
     // 设置选中项
     const selectItem = (e: MouseEvent<HTMLDivElement>, item: IComponentData) => {
       e.preventDefault();
-      setCurrentElementId(item.id);
+      setActive(item.id);
     };
 
+    // TODO 拖动操作、留给林老哥改
     const onDragUpdate = (result: DropResult) => { };
     const onDragEnd = (result: DropResult) => {
       // console.log(result)
       const { source, destination } = result;
       if (!destination) return;
-      let arr: IComponentData[] = [...componentData];
+      let arr: IComponentData[] = [...components];
       // arr[0].
       const [remove] = arr.splice(source.index, 1);
       arr.splice(destination.index, 0, remove);
-      setComponentData(arr);
+      // setComponentData(arr);
     };
-
-    // 修改 layname
-    const handleChange = (value) => {
-      console.log(value);
-      updateComponent && updateComponent("layerName", value, true)
-    }
 
     return (
       <div>
@@ -92,7 +62,7 @@ const LayerList: React.FC<Iprops> = ({ props, currentElementId, setCurrentElemen
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {componentData.map((item: IComponentData, index: number) => {
+                  {components.map((item: IComponentData, index: number) => {
                     return (
                       <Draggable
                         key={item.id}
@@ -105,14 +75,14 @@ const LayerList: React.FC<Iprops> = ({ props, currentElementId, setCurrentElemen
                             ref={p.innerRef}
                             {...p.draggableProps}
                             {...p.dragHandleProps}
-                            style={{ border: currentElementId === item.id ? "1px solid #1890ff" : '' }}
+                            style={{ border: currentElement === item.id ? "1px solid #1890ff" : '' }}
                             onClick={(events: MouseEvent<HTMLDivElement>) =>
                               selectItem(events, item)
                             }
                           >
                             {/* 是否可见 */}
                             <span
-                              onClick={() => changeLayerHidden(item)}
+                              onClick={() => handleChange("isHidden", !item.isHidden, true)}
                               className={styles['hidden-text']}
                             >
                               <Tooltip title={item.isHidden ? '显示' : '隐藏'}>
@@ -126,7 +96,7 @@ const LayerList: React.FC<Iprops> = ({ props, currentElementId, setCurrentElemen
 
                             {/* 是否禁止编辑 */}
                             <span
-                              onClick={() => changeLayerLock(item)}
+                              onClick={() => handleChange("isLocked", !item.isLocked, true)}
                               className={styles['hidden-text']}
                             >
                               <Tooltip title={item.isLocked ? '解锁' : '锁定'}>
@@ -137,7 +107,7 @@ const LayerList: React.FC<Iprops> = ({ props, currentElementId, setCurrentElemen
                                 )}
                               </Tooltip>
                             </span>
-                            <LnlineEdit value={item.layerName} onChange={handleChange} />
+                            <LnlineEdit value={item.layerName} onChange={(value) => handleChange("layerName", value, true)} />
                           </div>
                         )
                         }

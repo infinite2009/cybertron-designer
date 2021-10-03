@@ -1,66 +1,25 @@
 import React, { Fragment, memo } from 'react';
 import { Row, Empty } from 'antd';
-import { useRecoilState } from 'recoil';
 import { reduce } from 'lodash-es';
 import { mapPropsToForms, FormProps, PropToForm } from '@/types/propsMap';
 import { TextComponentProps } from '@/types/defaultProps';
-import {
-  componentDataAtom,
-  currentElementAtom,
-  historyAtom,
-} from '@/store/atorms/global';
 import { firstToUpper } from '@/util';
-import { v4 as uuidv4 } from 'uuid';
 import { IProps } from '.';
 import styles from './index.less';
-import { cloneDeep } from 'lodash-es';
 
 const Index: React.FC<IProps> = (props) => {
-  const [componentData, setComponentData] = useRecoilState(componentDataAtom);
-  const [currentElementId] = useRecoilState(currentElementAtom);
-  const [historyList, setHistory] = useRecoilState(historyAtom);
+
   if (props.props) {
     const propMap = props.props;
     const isLocked = propMap?.isLocked;
     const isHidden = propMap?.isHidden;
     const propChange = ({ key, value }) => {
       if (key === 'left' || key === 'top') {
-        const wrapperDiv = document.getElementById(
-          'wrapper' + currentElementId,
-        ) as HTMLElement;
+        const wrapperDiv = document.getElementById('wrapper' + props.currentElement) as HTMLElement;
         key === 'left' && (wrapperDiv.style.left = value);
         key === 'top' && (wrapperDiv.style.top = value);
       }
-
-      let newData = [...componentData];
-      // console.log(newData)
-      // TODO 后续抽离出去、可能还需要递归去找、现在先默认就是一层
-      newData = newData.map((data) => {
-        if (data.id === currentElementId) {
-          const newData = {
-            ...data,
-            props: {
-              ...data.props,
-              [key]: value,
-            },
-          };
-          // alert(1)
-          setHistory([
-            ...historyList,
-            {
-              type: 'modify',
-              id: uuidv4(),
-              componentId: data.id,
-              data: {
-                oldValue: cloneDeep(data),
-              },
-            },
-          ]);
-          return newData;
-        }
-        return data;
-      });
-      setComponentData(newData);
+      props.updateComponent(key, value);
     };
 
     const finalProps = reduce(propMap, (result, value, key) => {
