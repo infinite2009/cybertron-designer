@@ -6,7 +6,8 @@ export const REDO = "redo"
 export const ADDCOMPONENT = "addComponent"
 /** copy元素 */
 export const COPYCOMPONENT = "copyComponent"
-export const pasteCopiedComponent = "pasteCopiedComponent"
+/** 粘贴元素 */
+export const PASTECOPIEDCOMPONENT = "pasteCopiedComponent"
 /** 删除元素 */
 export const DELETECOMPONENT = "deleteComponent"
 /** 移动元素 */

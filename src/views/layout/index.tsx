@@ -8,6 +8,7 @@ import PropsTable from '@/components/propsTable'
 import { IComponentData } from '@/store/context';
 import componentMap from '@/types/componentMap';
 import EditWrapper from '@/components/editWrapper';
+import initHotKeys from "@/plugins/hotKeys"
 import { SETACTIVE, ADDCOMPONENT, UPDATECOMPONENT, UPDATEPAGE } from '@/store/contant'
 import { AppContext, IContextProps } from '@/store/context'
 import mockComponentList from "@/mock/component-list"
@@ -28,6 +29,8 @@ const BaseLayout: React.FC = () => {
 
     const isLocked = currentComponentData?.isLocked;
     const isHidden = currentComponentData?.isHidden;
+
+    initHotKeys();
 
     // 设置当前选中元素
     const setActive = useCallback((id: string) => {

@@ -7,7 +7,7 @@ import {
   UnlockOutlined,
 } from '@ant-design/icons';
 import LnlineEdit from '@/components/lnlineEdit'
-import { IComponentData } from '@/types/componentData';
+import { IComponentData } from '@/store/context';
 import {
   DragDropContext,
   Droppable,

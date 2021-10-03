@@ -123,3 +123,131 @@
 //         filterPreventDefault: true
 //     }, [historyList, historyIndex])
 // }
+import { useContext } from "react"
+import useHotKey from '@/hooks/useHotKey'
+import { KeyHandler, HotkeysEvent } from 'hotkeys-js'
+import { AppContext, IContextProps } from '@/store/context'
+import { SETACTIVE, COPYCOMPONENT, DELETECOMPONENT, PASTECOPIEDCOMPONENT, MOVECOMPONENT } from "@/store/contant"
+
+
+const wrap = (callback: KeyHandler) => {
+    const wrapperFn = (e: KeyboardEvent, event: HotkeysEvent) => {
+        e.preventDefault()
+        callback(e, event)
+    }
+    return wrapperFn
+}
+
+export default function initHotKeys() {
+
+    const { state, dispatch } = useContext<IContextProps>(AppContext)
+    console.log(state);
+
+    useHotKey('ctrl+c, command+c', () => {
+        dispatch({
+            type: COPYCOMPONENT,
+        })
+    })
+    useHotKey('ctrl+v, command+v', () => {
+        dispatch({
+            type: PASTECOPIEDCOMPONENT,
+        })
+    })
+
+    useHotKey('ctrl+backspace, command+backspace', () => {
+        dispatch({
+            type: DELETECOMPONENT
+        })
+    })
+
+    useHotKey('esc', () => {
+        dispatch({
+            type: SETACTIVE,
+            data: {
+                value: ''
+            }
+        })
+    })
+
+    useHotKey('up', wrap(() => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Up', amount: 1,
+                }
+            }
+        })
+
+    }))
+    useHotKey('down', wrap(() => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Down', amount: 1,
+                }
+            }
+        })
+    }))
+    useHotKey('left', wrap(() => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Left', amount: 1,
+                }
+            }
+        })
+    }))
+    useHotKey('right', wrap(() => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Right', amount: 1,
+                }
+            }
+        })
+    }))
+    useHotKey('shift+up', () => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Up', amount: 10,
+                }
+            }
+        })
+    })
+    useHotKey('shift+down', () => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Down', amount: 10,
+                }
+            }
+        })
+    })
+    useHotKey('shift+left', () => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Left', amount: 10,
+                }
+            }
+        })
+    })
+    useHotKey('shift+right', () => {
+        dispatch({
+            type: MOVECOMPONENT,
+            data: {
+                value: {
+                    direction: 'Right', amount: 10,
+                }
+            }
+        })
+    })
+}
