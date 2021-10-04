@@ -2,7 +2,7 @@ enum CommandType {
   start,
   insert,
   style,
-  layout
+  layout,
 }
 
 export default CommandType;

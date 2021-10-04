@@ -10,6 +10,6 @@ export default class ToolBar extends React.Component<{}, {}> {
         <div className={style.center}>中间</div>
         <div className={style.right}>右边</div>
       </div>
-    )
+    );
   }
 }

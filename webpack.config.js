@@ -1,4 +1,4 @@
-const { join, resolve } = require("path");
+const { join, resolve } = require('path');
 const merge = require('webpack-merge');
 const WebpackBar = require('webpackbar');
 
@@ -6,27 +6,27 @@ const WebpackBar = require('webpackbar');
 // 获取命令执行中的参数
 const argv = require('yargs-parser')(process.argv.slice(2));
 const _mode = argv.mode || 'development';
-const _modeFlag = _mode === "production";
+const _modeFlag = _mode === 'production';
 const _mergeConfig = require(`./config/webpack.${_mode}.js`);
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const Dotenv = require('dotenv-webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const getConfigPath = (mode) => {
-  return resolve(__dirname, `.env.${mode}`)
-}
+  return resolve(__dirname, `.env.${mode}`);
+};
 
 const webpackBaseConfig = {
   entry: {
-    app: resolve("./src/index.tsx")
+    app: resolve('./src/index.tsx'),
   },
   output: {
-    path: join(__dirname, './dist/assets')
+    path: join(__dirname, './dist/assets'),
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js"],
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
-      '@': join(__dirname, 'src')
-    }
+      '@': join(__dirname, 'src'),
+    },
   },
   module: {
     rules: [
@@ -39,48 +39,52 @@ const webpackBaseConfig = {
       },
       {
         test: /\.(css)$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(less)$/,
         use: [
-          "style-loader",
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
               },
-              sourceMap: !_modeFlag === 'development'
-            }
+              sourceMap: !_modeFlag === 'development',
+            },
           },
           {
             loader: 'less-loader',
             options: {
               lessOptions: {
-                javascriptEnabled: true
-              }
-            }
-          }
+                javascriptEnabled: true,
+              },
+            },
+          },
         ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|eot|woff|woff2|ttf|svg|otf|webp)$/,
-        type: "asset"
-      }
+        type: 'asset',
+      },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: _modeFlag ? "styles/[name].[contenthash:5].css" : "styles/[name].css",
-      chunkFilename: _modeFlag ? "styles/[id].[contenthash:5].css" : "styles/[id].css",
+      filename: _modeFlag
+        ? 'styles/[name].[contenthash:5].css'
+        : 'styles/[name].css',
+      chunkFilename: _modeFlag
+        ? 'styles/[id].[contenthash:5].css'
+        : 'styles/[id].css',
       ignoreOrder: true,
     }),
     new WebpackBar(),
     new Dotenv({
-      path: getConfigPath(_mode)
-    })
-  ]
+      path: getConfigPath(_mode),
+    }),
+  ],
 };
 
 module.exports = merge.default(webpackBaseConfig, _mergeConfig);

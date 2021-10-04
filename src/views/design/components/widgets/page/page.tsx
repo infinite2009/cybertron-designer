@@ -14,20 +14,20 @@ export default class PageWidget extends React.Component<PageWidgetProps, any> {
   constructor(props: PageWidgetProps) {
     super(props);
     this.state = {
-      items: []
+      items: [],
     };
   }
 
   componentDidMount() {
     this.setState({
-      items: this.getItems(10)
+      items: this.getItems(10),
     });
   }
 
-  getItems = count =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
+  getItems = (count) =>
+    Array.from({ length: count }, (v, k) => k).map((k) => ({
       id: `item-${k}`,
-      content: `item ${k}`
+      content: `item ${k}`,
     }));
 
   getItemStyle = (isDragging, draggableStyle) => ({
@@ -40,13 +40,13 @@ export default class PageWidget extends React.Component<PageWidgetProps, any> {
     background: isDragging ? 'lightgreen' : 'grey',
 
     // styles we need to apply on draggables
-    ...draggableStyle
+    ...draggableStyle,
   });
 
-  getListStyle = isDraggingOver => ({
+  getListStyle = (isDraggingOver) => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     padding: grid,
-    width: 250
+    width: 250,
   });
 
   reorder(list, startIndex, endIndex) {
@@ -70,24 +70,26 @@ export default class PageWidget extends React.Component<PageWidgetProps, any> {
     );
 
     this.setState({
-      items
+      items,
     });
   };
 
   renderDraggableItem = (item) => {
     return (provided, snapshot) => {
       console.log('style: ', provided.draggableProps.style.transform);
-      return <div
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        style={this.getItemStyle(
-          snapshot.isDragging,
-          provided.draggableProps.style
-        )}
-      >
-        {item.content}
-      </div>
+      return (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          style={this.getItemStyle(
+            snapshot.isDragging,
+            provided.draggableProps.style
+          )}
+        >
+          {item.content}
+        </div>
+      );
     };
   };
 
@@ -140,9 +142,7 @@ export default class PageWidget extends React.Component<PageWidgetProps, any> {
       <>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId={schema.id}>
-            {(provided, snapshot) =>
-              this.renderDroppable(provided, snapshot)
-            }
+            {(provided, snapshot) => this.renderDroppable(provided, snapshot)}
           </Droppable>
         </DragDropContext>
       </>

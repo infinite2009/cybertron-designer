@@ -1,7 +1,7 @@
 enum Framework {
   angular = 'Angular',
   react = 'React',
-  vue = 'Vue'
+  vue = 'Vue',
 }
 
 export default Framework;

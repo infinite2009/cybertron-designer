@@ -49,7 +49,7 @@ export const commonDefaultProps: CommonComponentProps = {
   position: 'relative',
   left: '0',
   top: '0',
-  right: '0'
+  right: '0',
 };
 export interface TextComponentProps extends CommonComponentProps {
   tag: string;
@@ -75,7 +75,7 @@ export const textDefaultProps: TextComponentProps = {
   ...commonDefaultProps,
   height: '100px',
   width: '100%',
-  tag: "div",
+  tag: 'div',
   text: '文本内容',
   fontSize: '14px',
   fontFamily: '',
@@ -91,11 +91,23 @@ export const textDefaultProps: TextComponentProps = {
 };
 
 export const imageDefaultProps: ImageComponentProps = {
-  src: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180721%2Fdd58d97982aa4d5eae06efe62c563b88.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635744462&t=9aae693ece0ea49bcb1fc5f8f85389f0",
+  src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180721%2Fdd58d97982aa4d5eae06efe62c563b88.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635744462&t=9aae693ece0ea49bcb1fc5f8f85389f0',
   ...commonDefaultProps,
 };
 
-export const textStylePropNames: string[] = without(Object.keys(textDefaultProps), 'actionType', 'url', 'text', "tag");
+export const textStylePropNames: string[] = without(
+  Object.keys(textDefaultProps),
+  'actionType',
+  'url',
+  'text',
+  'tag'
+);
 
-export const imageStylePropsNames: string[] = without(Object.keys(textDefaultProps), 'actionType', 'url', 'text', "tag", "src");
-
+export const imageStylePropsNames: string[] = without(
+  Object.keys(textDefaultProps),
+  'actionType',
+  'url',
+  'text',
+  'tag',
+  'src'
+);

@@ -18,11 +18,13 @@ const ColorPicker: React.FC<IProps> = (props) => {
     setSisplayColorPicker(false);
   };
 
-  const handleChange = useCallback((color) => {
-    setColor(color.hex);
-    props.onChange(color.hex);
-  }, [color])
-
+  const handleChange = useCallback(
+    (color) => {
+      setColor(color.hex);
+      props.onChange(color.hex);
+    },
+    [color]
+  );
 
   return (
     <div>

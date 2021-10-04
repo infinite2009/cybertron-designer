@@ -1,5 +1,5 @@
 enum Positioning {
-  static= 'static',
+  static = 'static',
   relative = 'relative',
   absolute = 'absolute',
   fixed = 'fixed',

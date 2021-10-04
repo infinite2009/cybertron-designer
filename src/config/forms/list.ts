@@ -4,7 +4,7 @@
 import baseFormConfig from '@/config/forms/base';
 import FormConfig from '@/interface/front-end/form-config';
 
-const listFormConfig: FormConfig[]  = [
+const listFormConfig: FormConfig[] = [
   baseFormConfig['layout-setting'],
   baseFormConfig['box-model-setting'],
   baseFormConfig['border-setting'],

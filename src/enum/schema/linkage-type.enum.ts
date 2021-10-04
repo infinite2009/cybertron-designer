@@ -5,7 +5,7 @@ enum LinkageType {
   isolated = 'isolated',
   listItem = 'listItem',
   columnItem = 'columnItem',
-  rowItem = 'rowItem'
+  rowItem = 'rowItem',
 }
 
 export default LinkageType;

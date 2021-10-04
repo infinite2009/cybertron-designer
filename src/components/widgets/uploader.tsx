@@ -4,13 +4,13 @@ import React, {
   DragEvent,
   useState,
   useRef,
-  useEffect
+  useEffect,
 } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Modal } from 'antd'
+import { Button, Modal } from 'antd';
 import styles from './uploader.less';
-import Cropper from 'cropperjs'
+import Cropper from 'cropperjs';
 
 type UploadStaus = 'ready' | 'loading' | 'success' | 'error';
 type FileListType = 'picture' | 'text';
@@ -37,7 +37,7 @@ export interface IProps {
   autoUpload?: boolean;
   success?: (value: SuccessProps) => void;
   fail?: Function;
-  src?: string
+  src?: string;
 }
 
 interface CropDataProps {
@@ -57,10 +57,10 @@ const Uploader: React.FC<IProps> = (props) => {
   const [fileList, setFlieList] = useState<UploadFile[]>([]);
   const [resultImg, setResultImg] = useState<string | ArrayBuffer>(props.src);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const cropperImg = useRef<null | HTMLImageElement>(null)
-  let cropper: Cropper
-  let imageBase64: string | ArrayBuffer = ''
-  let cropData: CropDataProps | null = null
+  const cropperImg = useRef<null | HTMLImageElement>(null);
+  let cropper: Cropper;
+  let imageBase64: string | ArrayBuffer = '';
+  let cropData: CropDataProps | null = null;
   // let fileList = new Array() as UploadFile[]
   const beforeUploadCheck = (files: FileList | null) => {
     if (files) {
@@ -75,7 +75,7 @@ const Uploader: React.FC<IProps> = (props) => {
                 addFileToList(processFile);
               } else {
                 throw new Error(
-                  'beforeUpload Promise should return File object',
+                  'beforeUpload Promise should return File object'
                 );
               }
             })
@@ -109,18 +109,18 @@ const Uploader: React.FC<IProps> = (props) => {
       raw: uploadedFile,
       status: 'ready',
     };
-    let reader = new FileReader()
-    reader.readAsDataURL(uploadedFile)
+    let reader = new FileReader();
+    reader.readAsDataURL(uploadedFile);
     reader.addEventListener('load', function (e) {
-      imageBase64 = e.target.result
+      imageBase64 = e.target.result;
       // fileObj.url = URL.createObjectURL(uploadedFile);
-      fileObj.url = imageBase64
+      fileObj.url = imageBase64;
       setFlieList([...fileList, fileObj]);
       if (props.autoUpload) {
         postFile(fileObj);
       }
-      reader = null
-    })
+      reader = null;
+    });
   };
   const postFile = (readyFile: UploadFile) => {
     const formData = new FormData();
@@ -132,7 +132,7 @@ const Uploader: React.FC<IProps> = (props) => {
           readyFile.status = 'success';
           readyFile.resp = data;
           // setRespArr([data, ...respArr]);
-          setResultImg(readyFile.url)
+          setResultImg(readyFile.url);
           // setPageBackground(`url(${readyFile.url}) no-repeat center / 100% 100%`)
           props.success({ resp: data, file: readyFile, list: fileList });
         } else {
@@ -169,48 +169,48 @@ const Uploader: React.FC<IProps> = (props) => {
       if (cropperImg.current) {
         cropper = new Cropper(cropperImg.current, {
           crop(event) {
-            const { x, y, width, height } = event.detail
+            const { x, y, width, height } = event.detail;
             cropData = {
               x: Math.floor(x),
               y: Math.floor(y),
               width: Math.floor(width),
-              height: Math.floor(height)
-            }
-          }
-        })
+              height: Math.floor(height),
+            };
+          },
+        });
       }
     }
-
-  }, [isModalVisible])
+  }, [isModalVisible]);
   const handleCropper = () => {
-    setIsModalVisible(true)
+    setIsModalVisible(true);
 
     // cropper = null
-
-  }
+  };
   const handleOk = () => {
-    setIsModalVisible(false)
+    setIsModalVisible(false);
     if (cropData) {
       // console.log(cropData)
-      let res = cropper.getCroppedCanvas({ imageSmoothingQuality: 'high' }).toDataURL('image/jpeg')
-      setResultImg(res)
+      let res = cropper
+        .getCroppedCanvas({ imageSmoothingQuality: 'high' })
+        .toDataURL('image/jpeg');
+      setResultImg(res);
       // setPageBackground(`url(${res}) no-repeat center / 100% 100%`)
-      cropper.destroy()
+      cropper.destroy();
     }
-  }
+  };
   const handleCancel = () => {
     if (cropper) {
-      console.log('销毁le')
-      cropper.destroy()
-      setIsModalVisible(false)
+      console.log('销毁le');
+      cropper.destroy();
+      setIsModalVisible(false);
     }
-  }
+  };
 
   const handleDelete = (e: MouseEvent) => {
-    setResultImg('')
+    setResultImg('');
     // setPageBackground('')
-    fileList.splice(fileList.length - 1, 1)
-  }
+    fileList.splice(fileList.length - 1, 1);
+  };
 
   return (
     <div>
@@ -238,8 +238,6 @@ const Uploader: React.FC<IProps> = (props) => {
             <br />
             <span>可拖拽至此区域</span>
           </p>
-
-
         </div>
       ) : (
         <div className={styles.uploader_box_img}>
@@ -251,16 +249,33 @@ const Uploader: React.FC<IProps> = (props) => {
             }}
           ></div>
           <div>
-            <Button onClick={handleCropper}>裁剪图片</Button><br></br>
-            <Button onClick={(e: MouseEvent) => handleClick(e)}>重新上传</Button><br></br>
-            <Button onClick={(e: MouseEvent) => handleDelete(e)}>删除图片</Button>
+            <Button onClick={handleCropper}>裁剪图片</Button>
+            <br></br>
+            <Button onClick={(e: MouseEvent) => handleClick(e)}>
+              重新上传
+            </Button>
+            <br></br>
+            <Button onClick={(e: MouseEvent) => handleDelete(e)}>
+              删除图片
+            </Button>
           </div>
         </div>
       )}
       {/* modal */}
-      <Modal width={700} title="裁剪图片" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal
+        width={700}
+        title="裁剪图片"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
         <div style={{ width: '100%' }}>
-          <img ref={cropperImg} src={fileList[0] && fileList[0].url as string} alt="" style={{ width: '100%', height: 'auto' }} />
+          <img
+            ref={cropperImg}
+            src={fileList[0] && (fileList[0].url as string)}
+            alt=""
+            style={{ width: '100%', height: 'auto' }}
+          />
         </div>
       </Modal>
     </div>

@@ -4,8 +4,6 @@
 import FormConfig from '@/interface/front-end/form-config';
 import baseFormConfig from '@/config/forms/base';
 
-const textFormConfig: FormConfig[] = [
-  baseFormConfig['font-setting']
-];
+const textFormConfig: FormConfig[] = [baseFormConfig['font-setting']];
 
 export default textFormConfig;

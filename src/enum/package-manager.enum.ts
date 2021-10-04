@@ -2,7 +2,7 @@ enum PackageManager {
   Cnpm = 'cnpm',
   Npm = 'npm',
   Pnpm = 'pnpm',
-  Yarn = 'yarn'
+  Yarn = 'yarn',
 }
 
 export default PackageManager;

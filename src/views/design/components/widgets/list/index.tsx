@@ -8,6 +8,6 @@ export default class ListWidget extends React.Component<any, any> {
   }
 
   render() {
-    return <div className={style.main}>List Widget works!</div>
+    return <div className={style.main}>List Widget works!</div>;
   }
 }

@@ -28,23 +28,23 @@ export default class Design extends Component<{}, DesignState> {
             width: {
               name: 'width',
               value: 375,
-              unit: StyleValueUnit.px
+              unit: StyleValueUnit.px,
             },
             height: {
               name: 'height',
               value: 812,
-              unit: StyleValueUnit.px
-            }
+              unit: StyleValueUnit.px,
+            },
           },
           route: '',
           // 运行期间读取和写入的
           localStorage: {
             read: {},
-            write: {}
+            write: {},
           },
           query: {
             read: {},
-            write: {}
+            write: {},
           },
           // 页面用到的接口
           httpApi: [],
@@ -55,10 +55,10 @@ export default class Design extends Component<{}, DesignState> {
           // 页面的运行时状态 ( 包括远端数据 )
           state: {},
           // 页面内的交互事件
-          events: {}
+          events: {},
         },
-        children: []
-      }
+        children: [],
+      },
     };
   }
 
@@ -66,10 +66,10 @@ export default class Design extends Component<{}, DesignState> {
     const { schema } = this.state;
     return (
       <div className={style.main}>
-        <section className={style.toolBar} >
+        <section className={style.toolBar}>
           <ToolBar />
         </section>
-        <section className={style.body} >
+        <section className={style.body}>
           <div className={style.left}>
             <PanelArea />
           </div>

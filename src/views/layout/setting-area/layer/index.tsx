@@ -6,7 +6,7 @@ import {
   LockOutlined,
   UnlockOutlined,
 } from '@ant-design/icons';
-import LnlineEdit from '@/components/lnlineEdit'
+import LnlineEdit from '@/components/lnlineEdit';
 import { IComponentData } from '@/store/context';
 import {
   DragDropContext,
@@ -14,33 +14,35 @@ import {
   Draggable,
   DropResult,
 } from 'react-beautiful-dnd';
-import { AppContext, IContextProps } from '@/store/context'
+import { AppContext, IContextProps } from '@/store/context';
 
 import styles from './index.less';
 
 export interface Iprops {
-  setActive: (id: string) => void
-  updateComponent: (key: string, value: any, isRoot?: boolean) => void
+  setActive: (id: string) => void;
+  updateComponent: (key: string, value: any, isRoot?: boolean) => void;
 }
 const LayerList: React.FC<Iprops> = ({ setActive, updateComponent }) => {
-
-  const { state } = useContext<IContextProps>(AppContext)
-  const { currentElement, components } = state
+  const { state } = useContext<IContextProps>(AppContext);
+  const { currentElement, components } = state;
 
   if (currentElement) {
     // 锁定、隐藏、修改图层名称统一操作
     const handleChange = (key: string, value: any, isRoot: boolean) => {
-      updateComponent(key, value, isRoot)
+      updateComponent(key, value, isRoot);
     };
 
     // 设置选中项
-    const selectItem = (e: MouseEvent<HTMLDivElement>, item: IComponentData) => {
+    const selectItem = (
+      e: MouseEvent<HTMLDivElement>,
+      item: IComponentData
+    ) => {
       e.preventDefault();
       setActive(item.id);
     };
 
     // TODO 拖动操作、留给林老哥改
-    const onDragUpdate = (result: DropResult) => { };
+    const onDragUpdate = (result: DropResult) => {};
     const onDragEnd = (result: DropResult) => {
       // console.log(result)
       const { source, destination } = result;
@@ -75,28 +77,39 @@ const LayerList: React.FC<Iprops> = ({ setActive, updateComponent }) => {
                             ref={p.innerRef}
                             {...p.draggableProps}
                             {...p.dragHandleProps}
-                            style={{ border: currentElement === item.id ? "1px solid #1890ff" : '' }}
+                            style={{
+                              border:
+                                currentElement === item.id
+                                  ? '1px solid #1890ff'
+                                  : '',
+                            }}
                             onClick={(events: MouseEvent<HTMLDivElement>) =>
                               selectItem(events, item)
                             }
                           >
                             {/* 是否可见 */}
                             <span
-                              onClick={() => handleChange("isHidden", !item.isHidden, true)}
+                              onClick={() =>
+                                handleChange('isHidden', !item.isHidden, true)
+                              }
                               className={styles['hidden-text']}
                             >
                               <Tooltip title={item.isHidden ? '显示' : '隐藏'}>
                                 {!item.isHidden ? (
                                   <EyeOutlined className={styles.icon} />
                                 ) : (
-                                  <EyeInvisibleOutlined className={styles.icon} />
+                                  <EyeInvisibleOutlined
+                                    className={styles.icon}
+                                  />
                                 )}
                               </Tooltip>
                             </span>
 
                             {/* 是否禁止编辑 */}
                             <span
-                              onClick={() => handleChange("isLocked", !item.isLocked, true)}
+                              onClick={() =>
+                                handleChange('isLocked', !item.isLocked, true)
+                              }
                               className={styles['hidden-text']}
                             >
                               <Tooltip title={item.isLocked ? '解锁' : '锁定'}>
@@ -107,10 +120,14 @@ const LayerList: React.FC<Iprops> = ({ setActive, updateComponent }) => {
                                 )}
                               </Tooltip>
                             </span>
-                            <LnlineEdit value={item.layerName} onChange={(value) => handleChange("layerName", value, true)} />
+                            <LnlineEdit
+                              value={item.layerName}
+                              onChange={(value) =>
+                                handleChange('layerName', value, true)
+                              }
+                            />
                           </div>
-                        )
-                        }
+                        )}
                       </Draggable>
                     );
                   })}
@@ -119,7 +136,7 @@ const LayerList: React.FC<Iprops> = ({ setActive, updateComponent }) => {
             </Droppable>
           </DragDropContext>
         }
-      </div >
+      </div>
     );
   }
   return (

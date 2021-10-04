@@ -1,5 +1,5 @@
 enum ValueType {
-  number= 'number',
+  number = 'number',
   string = 'string',
   enum = 'enum',
   boolean = 'boolean',

@@ -1,5 +1,5 @@
 enum LinkTarget {
-  blank= '_blank',
+  blank = '_blank',
   self = '_self',
 }
 

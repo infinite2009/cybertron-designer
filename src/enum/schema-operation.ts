@@ -7,7 +7,7 @@ enum SchemaOperation {
   // 删除一个控件的 schema，同时要考虑删除这个控件的副作用（比如动画效果、动作等）
   delete = 'delete',
   // 移动一个控件的 schema，可能是改变顺序，也可能是改变父节点
-  move = 'move'
+  move = 'move',
 }
 
 export default SchemaOperation;

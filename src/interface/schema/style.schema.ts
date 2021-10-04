@@ -1,4 +1,4 @@
-export default interface StyleSchema<T=any> {
+export default interface StyleSchema<T = any> {
   // 属性名
   name: string;
   // 属性值

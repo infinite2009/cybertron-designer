@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
 import { ITemplateProps } from '@/types/componentList';
-import { textDefaultProps, imageDefaultProps } from "@/types/defaultProps"
+import { textDefaultProps, imageDefaultProps } from '@/types/defaultProps';
 import { v4 as uuidv4 } from 'uuid';
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep } from 'lodash-es';
 import styles from './index.less';
 interface IProps {
   list: ITemplateProps[];
 }
 
 const ComponentList: FC<IProps> = (props) => {
-
   const addComponentData = (item: ITemplateProps) => {
     //   // let newcomponentData = [...componentData];
     //   const addProps = item.type === 'text-widget' ? { ...textDefaultProps } : { ...imageDefaultProps }
@@ -23,7 +22,6 @@ const ComponentList: FC<IProps> = (props) => {
     //     },
     //   };
     //   newcomponentData.push(newItem);
-
     //   const newHistoryList: HistoryProps[] = [
     //     ...historyList,
     //     {
@@ -34,7 +32,6 @@ const ComponentList: FC<IProps> = (props) => {
     //     }
     //   ]
     //   setHistory(newHistoryList)
-
     //   setComponentData(newcomponentData);
   };
   return (

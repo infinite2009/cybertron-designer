@@ -12,7 +12,7 @@ enum WidgetType {
   table = 'table-widget',
   tree = 'tree-widget',
   // 自定义类型——第三方组件，或者用户自己重构出来的组件，带源代码或者不带源代码
-  custom = 'custom-widget'
+  custom = 'custom-widget',
 }
 
 export default WidgetType;

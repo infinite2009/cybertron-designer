@@ -1,6 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IComponentData } from '@/store/context';
-import { commonDefaultProps, imageDefaultProps, textDefaultProps } from '@/types/defaultProps';
+import {
+  commonDefaultProps,
+  imageDefaultProps,
+  textDefaultProps,
+} from '@/types/defaultProps';
 
 const mockComponentList: Array<IComponentData> = [
   {
@@ -28,7 +32,7 @@ const mockComponentList: Array<IComponentData> = [
     icon: 'BuildOutlined',
     props: {
       ...textDefaultProps,
-      tag: "button",
+      tag: 'button',
     },
   },
   {
@@ -37,9 +41,9 @@ const mockComponentList: Array<IComponentData> = [
     type: 'image-widget',
     icon: 'BuildOutlined',
     props: {
-      ...imageDefaultProps
-    }
-  }
+      ...imageDefaultProps,
+    },
+  },
 ];
 
 export default mockComponentList;

@@ -1,5 +1,5 @@
 enum StyleValueUnit {
-  px= 'px',
+  px = 'px',
   vh = 'vh',
   vw = 'vw',
   em = 'em',

@@ -12,22 +12,22 @@ const borderStyle = {
   borderTop: {
     name: 'border-top',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   borderRight: {
     name: 'border-right',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   borderBottom: {
     name: 'border-bottom',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   borderLeft: {
     name: 'border-left',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
 };
 
@@ -35,22 +35,22 @@ const visualEffectStyle = {
   background: {
     name: 'background',
     value: '#fff',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
   boxShadow: {
     name: 'box-shadow',
     value: '',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
   transition: {
     name: 'transition',
     value: '',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
   animation: {
     name: 'animation',
     value: '',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
 };
 
@@ -58,67 +58,67 @@ const boxModelStyle = {
   boxSizing: {
     name: 'box-sizing',
     value: 'border-box',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
   marginTop: {
     name: 'margin-top',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   marginRight: {
     name: 'margin-right',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   marginBottom: {
     name: 'margin-bottom',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   marginLeft: {
     name: 'margin-left',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   paddingTop: {
     name: 'padding-top',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   paddingRight: {
     name: 'padding-right',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   paddingBottom: {
     name: 'padding-bottom',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   paddingLeft: {
     name: 'padding-left',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   width: {
     name: 'width',
     value: 'auto',
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   height: {
     name: 'height',
     value: 'auto',
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   minWidth: {
     name: 'min-width',
     value: 'auto',
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   minHeight: {
     name: 'min-height',
     value: 40,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
 };
 
@@ -126,40 +126,40 @@ const positionStyle = {
   position: {
     name: 'position',
     value: 'static',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
   top: {
     name: 'top',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   right: {
     name: 'right',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   bottom: {
     name: 'bottom',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   left: {
     name: 'left',
     value: 0,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
 };
 
 const width = {
   name: 'width',
   value: 'auto',
-  unit: StyleValueUnit.none
+  unit: StyleValueUnit.none,
 };
 
 const height = {
   name: 'height',
   value: 20,
-  unit: StyleValueUnit.px
+  unit: StyleValueUnit.px,
 };
 
 const fontStyle = {
@@ -171,22 +171,22 @@ const fontStyle = {
   fontSize: {
     name: 'font-size',
     value: 12,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   fontWeight: {
     name: 'font-weight',
     value: 600,
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
   lineHeight: {
     name: 'line-height',
     value: 20,
-    unit: StyleValueUnit.px
+    unit: StyleValueUnit.px,
   },
   color: {
     name: 'color',
     value: '#000',
-    unit: StyleValueUnit.none
+    unit: StyleValueUnit.none,
   },
 };
 
@@ -203,15 +203,15 @@ class SchemaService implements SchemaOperator {
             display: {
               name: 'display',
               value: Layout.block,
-              unit: StyleValueUnit.none
+              unit: StyleValueUnit.none,
             },
             ...positionStyle,
             ...visualEffectStyle,
             ...borderStyle,
             ...boxModelStyle,
-          }
+          },
         },
-        children: []
+        children: [],
       };
     },
     'text-widget': (data: { type: any }) => {
@@ -228,8 +228,8 @@ class SchemaService implements SchemaOperator {
             ...fontStyle,
             ...positionStyle,
             ...visualEffectStyle,
-          }
-        }
+          },
+        },
       };
     },
     'image-widget': (data: { type: any }) => {
@@ -245,17 +245,17 @@ class SchemaService implements SchemaOperator {
             width: {
               name: 'width',
               value: 100,
-              unit: StyleValueUnit.px
+              unit: StyleValueUnit.px,
             },
             height: {
               name: 'height',
               value: 100,
-              unit: StyleValueUnit.px
+              unit: StyleValueUnit.px,
             },
             ...positionStyle,
             ...visualEffectStyle,
-          }
-        }
+          },
+        },
       };
     },
     'list-widget': (data: { type: any }) => {
@@ -267,26 +267,26 @@ class SchemaService implements SchemaOperator {
         props: {
           data: {
             type: Array,
-            value: []
+            value: [],
           },
           style: {
             display: {
               name: 'display',
               value: Layout.block,
-              unit: StyleValueUnit.none
+              unit: StyleValueUnit.none,
             },
             ...boxModelStyle,
             minHeight: {
               name: 'min-height',
               value: 40,
-              unit: StyleValueUnit.px
+              unit: StyleValueUnit.px,
             },
             ...borderStyle,
             ...positionStyle,
             ...visualEffectStyle,
-          }
+          },
         },
-        children: []
+        children: [],
       };
     },
     'input-widget': (data: { type: any }) => {
@@ -298,15 +298,15 @@ class SchemaService implements SchemaOperator {
         props: {
           data: {
             type: String || Number,
-            value: ''
+            value: '',
           },
           style: {
             ...positionStyle,
             ...visualEffectStyle,
-          }
-        }
+          },
+        },
       };
-    }
+    },
   };
 
   insertWidget(data: { type: string }): any {

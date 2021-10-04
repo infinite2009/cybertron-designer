@@ -7,7 +7,9 @@ import textFormConfig from '@/config/forms/text';
 import FormConfig from '@/interface/front-end/form-config';
 import pageFormConfig from '@/config/forms/page';
 
-export function convertSchemaToStyle(styleSchema: StyleSchema[]): DynamicObject {
+export function convertSchemaToStyle(
+  styleSchema: StyleSchema[]
+): DynamicObject {
   return Object.values(styleSchema).reduce(
     (accumulator: DynamicObject, curVal) => {
       const key = hyphensToCamel(curVal.name);
@@ -20,7 +22,7 @@ export function convertSchemaToStyle(styleSchema: StyleSchema[]): DynamicObject 
 
 export function getFormConfig(widgetType: string): FormConfig[] {
   const dict: DynamicObject = {
-    'page': pageFormConfig,
+    page: pageFormConfig,
     'container-widget': containerFormConfig,
     'image-widget': imgFormConfig,
     'list-widget': listFormConfig,
@@ -45,41 +47,37 @@ export function camelToHyphens(name: string): string {
 
 /**
  * 首字母转大写
- * @param str 
- * @returns 
+ * @param str
+ * @returns
  */
-export function firstToUpper(str){
-  return str.replace(/\b(\w)(\w*)/g, function($0, $1, $2) {
-      return $1.toUpperCase() + $2.toLowerCase();
+export function firstToUpper(str) {
+  return str.replace(/\b(\w)(\w*)/g, function ($0, $1, $2) {
+    return $1.toUpperCase() + $2.toLowerCase();
   });
 }
 /**
  * 数组插入
- * @param arr 
- * @param index 
- * @param newItem 
- * @returns 
+ * @param arr
+ * @param index
+ * @param newItem
+ * @returns
  */
 export const insertAt = (arr: any[], index: number, newItem: any) => {
-  return [
-    ...arr.slice(0, index),
-    newItem,
-    ...arr.slice(index)
-  ]
-}
+  return [...arr.slice(0, index), newItem, ...arr.slice(index)];
+};
 /**
- * 
- * @param element 
- * @param className 
- * @returns 
+ *
+ * @param element
+ * @param className
+ * @returns
  */
 export const getParentElement = (element: HTMLElement, className: string) => {
   while (element) {
     if (element.classList && element.classList.contains(className)) {
-      return element
+      return element;
     } else {
-      element = element.parentNode as HTMLElement
+      element = element.parentNode as HTMLElement;
     }
   }
-  return null
-}
+  return null;
+};

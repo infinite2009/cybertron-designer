@@ -10,9 +10,9 @@
  * @FilePath: /cybertron-designer/src/types/homeTemplist.ts
  */
 export interface TemplateProps {
-    id: number;
-    coverImg: string;
-    title: string;
-    author: string;
-    copiedCount: number;
+  id: number;
+  coverImg: string;
+  title: string;
+  author: string;
+  copiedCount: number;
 }
